@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Hide the main Apps menu -->
+    <record id="base.menu_management" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- HIDE Configuration -> Projects Menus -->
+    <record id="project.menu_projects_config" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="project.menu_projects_config_group_stage" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- CHANGE Main Projects Actions to Open as List (Tree) by Default -->
+    <record id="project.open_view_project_all" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" eval="False"/>
+    </record>
+    <record id="project.open_view_project_all_group_stage" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,form,calendar,activity</field>
+        <field name="view_id" eval="False"/>
+    </record>
+
+    <!-- Adjust sequences for open_view_project_all_group_stage views so Tree is first -->
+    <record id="project.open_view_project_all_group_stage_tree_view" model="ir.actions.act_window.view">
+        <field name="sequence" eval="5"/>
+    </record>
+    <record id="project.open_view_project_all_group_stage_kanban_view" model="ir.actions.act_window.view">
+        <field name="sequence" eval="20"/>
+    </record>
+</odoo>

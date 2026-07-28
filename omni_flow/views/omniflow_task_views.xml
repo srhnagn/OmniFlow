@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Kanban View Override for OmniFlow -->
+    <record id="omniflow_task_kanban_override" model="ir.ui.view">
+        <field name="name">omniflow.task.kanban.override</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="class">o_omniflow_kanban</attribute>
+            </xpath>
+            
+            <!-- We can inject our cover image into the Kanban card ONLY if it exists -->
+            <xpath expr="//div[hasclass('oe_kanban_content')]" position="before">
+                <t t-if="record.omniflow_cover_image.raw_value">
+                    <div class="o_omniflow_cover_wrapper" style="margin: -16px -16px 12px -16px; border-radius: 12px 12px 0 0; overflow: hidden;">
+                        <field name="omniflow_cover_image" widget="image" options="{'size': [300, 150]}" class="o_omniflow_cover_img" style="width: 100%; object-fit: cover; border-radius: 12px 12px 0 0;"/>
+                    </div>
+                </t>
+            </xpath>
+            
+            <!-- Adding Story Points to the bottom right of the card -->
+            <xpath expr="//div[hasclass('oe_kanban_bottom_right')]" position="inside">
+                <span class="badge rounded-pill text-bg-light me-2" title="Story Points">
+                    <i class="fa fa-star text-warning"></i> <field name="omniflow_story_points"/>
+                </span>
+            </xpath>
+            
+        </field>
+    </record>
+
+    <!-- Form View Override (Notion Style) -->
+    <record id="omniflow_task_form_override" model="ir.ui.view">
+        <field name="name">omniflow.task.form.override</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//sheet" position="attributes">
+                <attribute name="class">o_omniflow_form_sheet</attribute>
+            </xpath>
+            
+            <!-- Move Description to be very prominent -->
+            <xpath expr="//field[@name='description']" position="attributes">
+                <attribute name="placeholder">Type '/' for commands or start writing your Notion-style notes here...</attribute>
+                <attribute name="style">min-height: 400px; font-size: 1.1rem; line-height: 1.6;</attribute>
+            </xpath>
+            
+            <xpath expr="//group" position="before">
+                <group>
+                    <field name="omniflow_cover_image" widget="image" class="oe_avatar" style="width: 100%; max-height: 300px; object-fit: cover; margin-bottom: 20px;" nolabel="1"/>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
