@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Configuration Menu for To-Do -->
+    <menuitem id="omniflow_todo_config_menu" name="Configuration" parent="project_todo.menu_todo_todos" sequence="100"/>
+    
+    <!-- Action to load default stages from menu -->
+    <record id="action_menu_load_default_stages" model="ir.actions.server">
+        <field name="name">Load Default Stages</field>
+        <field name="model_id" ref="project.model_project_task_type"/>
+        <field name="state">code</field>
+        <field name="code">
+action = env['project.task.type'].action_load_default_stages()
+        </field>
+    </record>
+
+    <!-- Menu Item for Load Default Stages -->
+    <menuitem id="omniflow_menu_load_stages" 
+              name="Load Default Stages" 
+              parent="omniflow_todo_config_menu" 
+              action="action_menu_load_default_stages" 
+              sequence="10"/>
+
     <!-- Hide the main Apps menu -->
     <record id="base.menu_management" model="ir.ui.menu">
         <field name="active" eval="False"/>

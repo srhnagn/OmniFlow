@@ -10,6 +10,11 @@
             
             <xpath expr="//kanban" position="attributes">
                 <attribute name="class">o_omniflow_kanban</attribute>
+                <attribute name="default_group_by">omni_state</attribute>
+            </xpath>
+            <xpath expr="//kanban" position="inside">
+                <field name="omni_state"/>
+                <field name="description"/>
             </xpath>
             
             <!-- We can inject our cover image into the Kanban card ONLY if it exists -->
@@ -20,14 +25,45 @@
                     </div>
                 </t>
             </xpath>
-            
-            <!-- Adding Story Points to the bottom right of the card -->
-            <xpath expr="//div[hasclass('oe_kanban_bottom_right')]" position="inside">
-                <span class="badge rounded-pill text-bg-light me-2" title="Story Points">
-                    <i class="fa fa-star text-warning"></i> <field name="omniflow_story_points"/>
-                </span>
+
+            <!-- Description: Görev Açıklaması - o_kanban_record_body içine enjekte et -->
+            <xpath expr="//div[hasclass('o_kanban_record_body')]" position="inside">
+                <div t-if="record.description.raw_value" class="o_omniflow_kanban_desc mt-1" style="max-height: 80px; overflow: hidden; font-size: 0.82em; line-height: 1.4; opacity: 0.8; border-left: 2px solid #facc15; padding-left: 6px; color: #cbd5e1;">
+                    <field name="description" widget="html" readonly="1"/>
+                </div>
+            </xpath>
+
+            <!-- Popup Modal Butonu - Kartın Gövdesinin Altına Şık Bir Buton Olarak Ekle -->
+            <xpath expr="//div[hasclass('o_kanban_record_body')]" position="inside">
+                <div class="mt-3">
+                    <button name="action_open_modal" type="object" 
+                        class="btn btn-sm w-100 o_omniflow_open_btn" 
+                        style="background: rgba(250, 204, 21, 0.1); border: 1px dashed rgba(250, 204, 21, 0.4); border-radius: 6px; color: #facc15; font-size: 0.85rem; font-weight: 500; padding: 4px 0; transition: all 0.2s;"
+                        title="View Details">
+                        <i class="fa fa-align-left me-1"></i> View Details
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- To-Do Kanban View Override for OmniFlow -->
+    <record id="omniflow_todo_task_kanban_override" model="ir.ui.view">
+        <field name="name">omniflow.todo.task.kanban.override</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_todo.project_task_view_todo_kanban"/>
+        <field name="arch" type="xml">
+            <!-- Cancel Button at bottom left -->
+            <xpath expr="//div[hasclass('oe_kanban_bottom_left')]" position="inside">
+                <button name="action_cancel_todo" type="object" class="btn btn-link p-0 text-danger" title="Cancel Task" style="display: flex; align-items: center; text-decoration: none; border: none; background: transparent; padding-top: 5px !important;">
+                    <i class="fa fa-times-circle" style="font-size: 1.3em; opacity: 0.6; transition: opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6"></i>
+                </button>
             </xpath>
             
+            <!-- Align the Done checkmark to the left by shifting its parent div -->
+            <xpath expr="//field[@name='state'][@widget='todo_done_checkmark']/.." position="attributes">
+                <attribute name="style">margin-left: -4px;</attribute>
+            </xpath>
         </field>
     </record>
 
@@ -38,13 +74,34 @@
         <field name="inherit_id" ref="project.view_task_form2"/>
         <field name="arch" type="xml">
             
+            <xpath expr="//header" position="replace">
+                <header>
+                    <button name="action_request_start" string="Request Start Approval" type="object" class="btn-primary" invisible="omni_state != 'waiting'"/>
+                    <button name="action_request_finish" string="Request Finish Approval" type="object" class="btn-primary" invisible="omni_state != 'in_progress'"/>
+
+                    <button name="action_approve" string="Approve" type="object" class="btn-success" invisible="omni_state not in ('pending_start', 'pending_finish')" groups="omni_flow.group_omniflow_manager"/>
+                    <button name="action_reject" string="Reject" type="object" class="btn-danger" invisible="omni_state not in ('pending_start', 'pending_finish')" groups="omni_flow.group_omniflow_manager"/>
+
+                    <field name="omni_state" widget="statusbar" statusbar_visible="waiting,pending_start,in_progress,pending_finish,done"/>
+                </header>
+            </xpath>
+            
             <xpath expr="//sheet" position="attributes">
                 <attribute name="class">o_omniflow_form_sheet</attribute>
             </xpath>
             
             <!-- Move Description to be very prominent -->
+            <xpath expr="//field[@name='description']" position="before">
+                <div class="o_omniflow_form_help mb-4" style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 12px; padding: 24px; text-align: center;">
+                    <i class="fa fa-pencil fa-3x mb-3" style="color: rgba(255,255,255,0.1);" title="Edit Note" aria-label="Edit Note"></i>
+                    <h3 style="color: #cbd5e1; font-weight: 600;">Welcome to Task Details</h3>
+                    <p style="color: #94a3b8; font-size: 1.05rem; max-width: 600px; margin: 0 auto;">
+                        This is a <strong>Notion-style infinite workspace</strong> where you can collect all notes, details, and documents related to this task. Click below to start writing. <br/>Tip: Type <b>'/'</b> to add a heading, list, or file.
+                    </p>
+                </div>
+            </xpath>
             <xpath expr="//field[@name='description']" position="attributes">
-                <attribute name="placeholder">Type '/' for commands or start writing your Notion-style notes here...</attribute>
+                <attribute name="placeholder">Click here to start typing (Type '/' for commands)...</attribute>
                 <attribute name="style">min-height: 400px; font-size: 1.1rem; line-height: 1.6;</attribute>
             </xpath>
             
@@ -55,6 +112,53 @@
             </xpath>
 
         </field>
+    </record>
+    <!-- Quick Create Form Override — user_ids avatar widget gizle -->
+    <record id="omniflow_quick_create_task_override" model="ir.ui.view">
+        <field name="name">omniflow.quick.create.task.override</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.quick_create_task_form"/>
+        <field name="arch" type="xml">
+            <!-- Avatar kullanıcı seçici gereksiz boşluk bırakıyor — kaldır -->
+            <xpath expr="//field[@name='user_ids']" position="replace">
+                <field name="user_ids" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- To-Do Form View Override (Notion Style for Personal Tasks) -->
+    <record id="omniflow_todo_task_form_override" model="ir.ui.view">
+        <field name="name">omniflow.todo.task.form.override</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_todo.project_task_view_todo_form"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//sheet" position="attributes">
+                <attribute name="class">o_omniflow_todo_sheet</attribute>
+            </xpath>
+            
+            <xpath expr="//field[@name='description']" position="before">
+                <div class="o_omniflow_form_help mb-4" style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 12px; padding: 24px; text-align: center;">
+                    <i class="fa fa-pencil fa-3x mb-3" style="color: rgba(255,255,255,0.1);"></i>
+                    <h3 style="color: #cbd5e1; font-weight: 600;">Welcome to Task Details</h3>
+                    <p style="color: #94a3b8; font-size: 1.05rem; max-width: 600px; margin: 0 auto;">
+                        This is a <strong>Notion-style infinite workspace</strong> where you can collect all notes, details, and documents related to this task. Click below to start writing. <br/>Tip: Type <b>'/'</b> to add a heading, list, or file.
+                    </p>
+                </div>
+            </xpath>
+            
+            <xpath expr="//field[@name='description']" position="attributes">
+                <attribute name="placeholder">Click here to start typing (Type '/' for commands)...</attribute>
+                <attribute name="style">min-height: 400px; font-size: 1.1rem; line-height: 1.6;</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Override To-Do Action Context to show closed tasks in their respective stages (e.g. Done stage) -->
+    <record id="project_todo.project_task_action_todo" model="ir.actions.act_window">
+        <!-- We override the context to remove search_default_open_tasks: 1 -->
+        <field name="context">{'tree_view_ref': 'project_todo.project_task_view_todo_tree', 'default_project_id': False}</field>
     </record>
 
 </odoo>

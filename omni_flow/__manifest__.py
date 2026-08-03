@@ -13,6 +13,7 @@
     'version': '0.1',
     'depends': ['base', 'project', 'mail', 'web'],
     'data': [
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/omniflow_task_views.xml',
         'views/menu_overrides.xml',
@@ -21,6 +22,9 @@
         'web.assets_backend': [
             'omni_flow/static/src/scss/backend_overrides.scss',
             'omni_flow/static/src/scss/omniflow_kanban.scss',
+            'omni_flow/static/src/js/todo_done_checkmark_patch.js',
+            'omni_flow/static/src/js/kanban_header_patch.js',
+            'omni_flow/static/src/xml/kanban_header_override.xml',
         ],
     },
     'installable': True,

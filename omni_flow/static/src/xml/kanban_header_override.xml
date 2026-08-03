@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="web.KanbanHeader" t-inherit-mode="extension">
+        <xpath expr="//Dropdown" position="before">
+            <button class="btn px-2 o_kanban_toggle_fold" t-on-click.stop="() => this.group.toggle()" title="Fold Column" aria-label="Fold Column">
+                <i class="fa fa-compress opacity-50 opacity-100-hover" role="img"/>
+            </button>
+        </xpath>
+    </t>
+</templates>
