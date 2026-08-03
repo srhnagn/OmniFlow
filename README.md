@@ -5,8 +5,9 @@ OmniFlow is an Odoo 17-based centralized platform designed for comprehensive tea
 ## ✨ Key Features
 
 * **Manager-Approved Task Workflow:** Unlike standard task managers where anyone can move cards freely, OmniFlow enforces a strict approval mechanism. Tasks transitioning between "Waiting", "In Progress", and "Done" states must pass through a Project Manager's approval, ensuring complete managerial control over project progression.
-* **Custom Kanban Boards:** Highly visual, custom Kanban card designs optimized for quick status reading, featuring a modern and highly responsive interface reminiscent of popular agile project management tools like Trello.
-* **Rich Text Task Documents:** Moving away from classic, rigid ERP form layouts to a wide, clean, Notion-style document structure that focuses on Rich Text editing for extensive task descriptions and collaborative notes.
+* **Custom Kanban Boards:** Highly visual, custom Kanban card designs optimized for quick status reading. Features quick-action buttons (Red X for Cancel, Green Tick for Done) directly on the cards for one-click stage transitions.
+* **State Persistence & Core Overrides:** Native Odoo JavaScript OWL behaviors were patched to provide true "Fold Memory Persistence", meaning collapsed columns are saved directly to the database. Core system stages ('Done', 'Cancelled') are protected at the Python ORM level to prevent accidental deletion.
+* **Rich Text Task Documents:** Moving away from classic, rigid ERP form layouts to a wide, clean, Notion-style document structure that focuses on Rich Text editing for extensive task descriptions and collaborative notes. Includes a custom onboarding placeholder ("Welcome to Task Details").
 * **Centralized Internal Communication:** Customized Odoo Discuss framework integrations that provide a Slack/Teams-like structure directly embedded within task records, allowing teams to collaborate in context without leaving the platform.
 * **Dark Theme Optimized:** Deep UI/UX overrides with carefully crafted CSS/SCSS ensuring the entire task management experience is easy on the eyes and professionally styled.
 
