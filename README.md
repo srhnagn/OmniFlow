@@ -4,7 +4,7 @@ OmniFlow is an Odoo 17-based centralized platform designed for comprehensive tea
 
 ## ✨ Key Features
 
-* **Manager-Approved Task Workflow:** Unlike standard task managers where anyone can move cards freely, OmniFlow enforces a strict approval mechanism. Tasks transitioning between "Waiting", "In Progress", and "Done" states must pass through a Project Manager's approval, ensuring complete managerial control over project progression.
+* **Manager-Approved Task Workflow:** Unlike standard task managers where anyone can move cards freely, OmniFlow enforces a strict approval mechanism. Tasks transitioning between "Ideas", "In Progress", and "Done" states must pass through a Project Manager's approval, ensuring complete managerial control over project progression.
 * **Custom Kanban Boards:** Highly visual, custom Kanban card designs optimized for quick status reading. Features quick-action buttons (Red X for Cancel, Green Tick for Done) directly on the cards for one-click stage transitions.
 * **State Persistence & Core Overrides:** Native Odoo JavaScript OWL behaviors were patched to provide true "Fold Memory Persistence", meaning collapsed columns are saved directly to the database. Core system stages ('Done', 'Cancelled') are protected at the Python ORM level to prevent accidental deletion.
 * **Rich Text Task Documents:** Moving away from classic, rigid ERP form layouts to a wide, clean, Notion-style document structure that focuses on Rich Text editing for extensive task descriptions and collaborative notes. Includes a custom onboarding placeholder ("Welcome to Task Details").
@@ -28,7 +28,7 @@ OmniFlow is an Odoo 17-based centralized platform designed for comprehensive tea
 ## 🤝 Workflow Logic (Business Rules)
 
 The core philosophy of OmniFlow revolves around **Controlled Progress**. 
-If a team member finishes a task and marks it as "Done", it does not officially close until a Manager reviews the outcome. If rejected, the manager can revert the task back to the "Waiting" or "In Progress" state with feedback. This rigorous approval mechanism forms the backbone of the OmniFlow task management system, guaranteeing high-quality deliverables.
+If a team member finishes a task and marks it as "Done", it does not officially close until a Manager reviews the outcome. If rejected, the manager can revert the task back to the "Ideas" or "In Progress" state with feedback. This rigorous approval mechanism forms the backbone of the OmniFlow task management system, guaranteeing high-quality deliverables.
 
 ---
 
