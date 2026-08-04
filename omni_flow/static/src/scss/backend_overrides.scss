@@ -65,8 +65,8 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
 /* Kaydet (Cloud) ve Vazgeç (Undo) Butonlarını Yazıya Çevirme */
 .o_form_button_save i, .o_form_button_cancel i { display: none !important; }
 .o_form_button_save, .o_form_button_cancel { font-size: 0 !important; padding: 6px 16px !important; border-radius: 6px !important; margin-left: 5px !important; border: none !important; }
-.o_form_button_save::after { content: "Kaydet"; font-size: 0.95rem; font-weight: 600; }
-.o_form_button_cancel::after { content: "Vazgeç"; font-size: 0.95rem; font-weight: 600; }
+.o_form_button_save::after { content: "Save"; font-size: 0.95rem; font-weight: 600; }
+.o_form_button_cancel::after { content: "Cancel"; font-size: 0.95rem; font-weight: 600; }
 .o_form_button_save { background-color: #10b981 !important; color: white !important; }
 .o_form_button_cancel { background-color: #ef4444 !important; color: white !important; }
 
@@ -128,14 +128,12 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
 
 /* Kanban Header Butonlarını SÜREKLİ Görünür Yap */
 .o_kanban_header .o_kanban_config .dropdown-toggle, 
-.o_kanban_header .o_kanban_quick_add,
 .o_kanban_header .o_kanban_toggle_fold {
     visibility: visible !important;
     opacity: 0.8 !important; 
     color: #e2e8f0 !important;
 }
 .o_kanban_header .o_kanban_config .dropdown-toggle:hover,
-.o_kanban_header .o_kanban_quick_add:hover,
 .o_kanban_header .o_kanban_toggle_fold:hover {
     opacity: 1 !important;
     color: #facc15 !important;
@@ -231,6 +229,21 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
     transition: border-color 0.2s ease, transform 0.15s ease;
 }
 
+.o_omniflow_kanban .o_kanban_record {
+    height: auto !important;
+    min-height: max-content !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* Üstteki 'New' butonunu gizleme */
+.o_action_manager:has(.o_omniflow_kanban) .o_control_panel .o-kanban-button-new,
+.o_action_manager:has(.o_omniflow_kanban) .o_control_panel .o_kanban_button_new,
+.o_action_manager:has(.o_omniflow_kanban) .o_control_panel .o_list_button_add,
+.o_action_manager:has(.o_omniflow_kanban) .o_control_panel .btn-primary {
+    display: none !important;
+}
+
 .o_kanban_record:hover, .o_kanban_record:hover .oe_kanban_global_click {
     outline: 2px solid rgba(250, 204, 21, 0.7) !important;
     outline-offset: 0px;
@@ -245,6 +258,78 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
 .o_kanban_record strong,
 .o_kanban_record .text-muted { 
     color: #f8fafc !important; 
+}
+
+/* Uzun metinlerin kartlardan taşmasını (overflow) engelle ve HTML tag'lerini düzelt */
+.o_kanban_record_title {
+    word-break: break-word !important;
+    white-space: normal !important;
+    display: block !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    -webkit-line-clamp: unset !important;
+}
+
+.o_omniflow_kanban_desc {
+    word-break: break-word !important;
+    white-space: normal !important;
+    color: #cbd5e1; /* Default renk */
+}
+
+/* Tüm normal elemanlarda 15px varsayılanını uygula ve inline devasa fontları ez */
+.o_omniflow_kanban_desc,
+.o_omniflow_kanban_desc p,
+.o_omniflow_kanban_desc span,
+.o_omniflow_kanban_desc div,
+.o_omniflow_kanban_desc li,
+.o_omniflow_kanban_desc b,
+.o_omniflow_kanban_desc i,
+.o_omniflow_kanban_desc u,
+.o_omniflow_kanban_desc font,
+.o_omniflow_kanban_desc table,
+.o_omniflow_kanban_desc td,
+.o_omniflow_kanban_desc th,
+.o_omniflow_kanban_desc a,
+.o_omniflow_kanban_desc *[style*="font-size"] {
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+    background-color: transparent !important;
+}
+
+/* Tüm başlık elemanlarını 21px'e sabitle (Ve içlerindeki span/font vb. de 21px olsun) */
+.o_omniflow_kanban_desc h1, 
+.o_omniflow_kanban_desc h2, 
+.o_omniflow_kanban_desc h3,
+.o_omniflow_kanban_desc h4,
+.o_omniflow_kanban_desc h5,
+.o_omniflow_kanban_desc h6,
+.o_omniflow_kanban_desc h1[style],
+.o_omniflow_kanban_desc h2[style],
+.o_omniflow_kanban_desc h3[style],
+.o_omniflow_kanban_desc h4[style],
+.o_omniflow_kanban_desc h5[style],
+.o_omniflow_kanban_desc h6[style],
+.o_omniflow_kanban_desc h1 *, 
+.o_omniflow_kanban_desc h2 *, 
+.o_omniflow_kanban_desc h3 *,
+.o_omniflow_kanban_desc h4 *,
+.o_omniflow_kanban_desc h5 *,
+.o_omniflow_kanban_desc h6 * {
+    font-size: 21px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+    background-color: transparent !important;
+}
+
+.o_omniflow_kanban_desc h1, 
+.o_omniflow_kanban_desc h2, 
+.o_omniflow_kanban_desc h3,
+.o_omniflow_kanban_desc h4,
+.o_omniflow_kanban_desc h5,
+.o_omniflow_kanban_desc h6 {
+    margin-top: 8px !important;
+    margin-bottom: 4px !important;
 }
 
 /* Kanban Color Picker Fix */
@@ -806,25 +891,127 @@ i.fa-video-camera,
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* Editör İçini Stilize Etme */
-.o_omniflow_todo_sheet .oe_description {
+/* Editör İçini Stilize Etme (Genel Form Görünümlerinde) */
+.o_form_view .oe_description {
     background-color: transparent !important;
     border: none !important;
 }
-.o_omniflow_todo_sheet .note-editable {
-    color: #e2e8f0 !important;
-    font-size: 1.15rem !important;
-    line-height: 1.8 !important;
+.o_form_view .note-editable,
+.o_form_view .odoo-editor-editable {
+    color: #e2e8f0;
+    font-size: 15px;
+    line-height: 1.5;
     padding: 0 !important;
 }
-.o_omniflow_todo_sheet .note-editable h1, 
-.o_omniflow_todo_sheet .note-editable h2, 
-.o_omniflow_todo_sheet .note-editable h3 {
-    color: #f8fafc !important;
-    font-weight: 700 !important;
-    margin-top: 1.5rem !important;
+.o_form_view .note-editable p,
+.o_form_view .odoo-editor-editable p,
+.o_form_view .note-editable div,
+.o_form_view .odoo-editor-editable div {
+    color: #e2e8f0;
+    font-size: 15px;
 }
-.o_omniflow_todo_sheet .note-placeholder {
+.o_form_view .note-editable h1, 
+.o_form_view .note-editable h2, 
+.o_form_view .note-editable h3,
+.o_form_view .note-editable h4,
+.o_form_view .note-editable h5,
+.o_form_view .note-editable h6,
+.o_form_view .odoo-editor-editable h1,
+.o_form_view .odoo-editor-editable h2,
+.o_form_view .odoo-editor-editable h3,
+.o_form_view .odoo-editor-editable h4,
+.o_form_view .odoo-editor-editable h5,
+.o_form_view .odoo-editor-editable h6 {
+    color: #f8fafc;
+    font-weight: 700;
+    margin-top: 1.5rem;
+}
+.o_form_view .note-placeholder {
     color: rgba(255, 255, 255, 0.3) !important;
-    font-size: 1.15rem !important;
+    font-size: 15px;
+}
+
+/* =========================================
+   TOP RIGHT VIEW SWITCHER BUTTONS (KANBAN, LIST, ACTIVITY)
+   ========================================= */
+.o_switch_view {
+    width: auto !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+}
+
+.o_switch_view.o_kanban::after {
+    content: "Kanban";
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.o_switch_view.o_list::after {
+    content: "List";
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.o_switch_view.o_activity::after {
+    content: "Scheduled Activities";
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+
+/* =========================================
+   PROJECT LIST VIEW "VIEW TASKS" BUTTON
+   ========================================= */
+.o_list_view button.omniflow-view-tasks-btn {
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    border: 1px dashed rgba(250, 204, 21, 0.4) !important;
+    border-radius: 4px !important;
+    background-color: rgba(250, 204, 21, 0.05) !important;
+    color: #facc15 !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    padding: 6px 16px !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    text-transform: none !important;
+    line-height: normal !important;
+    text-decoration: none !important;
+}
+
+.o_list_view button.omniflow-view-tasks-btn:hover {
+    background-color: rgba(250, 204, 21, 0.15) !important;
+    color: #ffffff !important;
+    border-color: rgba(250, 204, 21, 1) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* =========================================
+   PROJECT KANBAN CARD SPACING
+   ========================================= */
+.o_kanban_view.o_project_kanban .o_kanban_record {
+    margin: 8px 16px 16px 0 !important;
+}
+
+
+/* Kanban üzerinden müşteri isimlerini (partner_id) gizleme */
+.o_omniflow_kanban .o_kanban_record span[name="partner_id"],
+.o_omniflow_kanban .o_kanban_record .o_field_widget[name="partner_id"],
+.o_omniflow_kanban .o_kanban_record span:has(> [name="partner_id"]) {
+    display: none !important;
+}
+
+/* Sadece 'ideas' aşamasında + (Hızlı Oluştur) butonunu göster, diğerlerinde gizle */
+.o_kanban_group:not([data-id="ideas"]) .o_kanban_header .o_kanban_quick_add {
+    display: none !important;
 }

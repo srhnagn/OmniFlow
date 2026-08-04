@@ -11,10 +11,24 @@
             <xpath expr="//kanban" position="attributes">
                 <attribute name="class">o_omniflow_kanban</attribute>
                 <attribute name="default_group_by">omni_state</attribute>
+                <attribute name="action">action_open_project_task_modal</attribute>
+                <attribute name="type">object</attribute>
+                <attribute name="quick_create">1</attribute>
             </xpath>
             <xpath expr="//kanban" position="inside">
                 <field name="omni_state"/>
                 <field name="description"/>
+            </xpath>
+
+            <!-- Hide customer (partner_id) on Kanban cards -->
+            <xpath expr="//templates//field[@name='partner_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- Add Delete button to hamburger menu -->
+            <xpath expr="//t[@t-name='kanban-menu']" position="inside">
+                <div role="separator" class="dropdown-divider"></div>
+                <a role="menuitem" type="delete" class="dropdown-item text-danger">Delete Task</a>
             </xpath>
             
             <!-- We can inject our cover image into the Kanban card ONLY if it exists -->
@@ -28,7 +42,7 @@
 
             <!-- Description: Görev Açıklaması - o_kanban_record_body içine enjekte et -->
             <xpath expr="//div[hasclass('o_kanban_record_body')]" position="inside">
-                <div t-if="record.description.raw_value" class="o_omniflow_kanban_desc mt-1" style="max-height: 80px; overflow: hidden; font-size: 0.82em; line-height: 1.4; opacity: 0.8; border-left: 2px solid #facc15; padding-left: 6px; color: #cbd5e1;">
+                <div t-if="record.description.raw_value" class="o_omniflow_kanban_desc mt-1 mb-2" style="font-size: 0.82em; line-height: 1.4; opacity: 0.8; border-left: 2px solid #facc15; padding-left: 6px; color: #cbd5e1; word-wrap: break-word;">
                     <field name="description" widget="html" readonly="1"/>
                 </div>
             </xpath>
@@ -36,7 +50,7 @@
             <!-- Popup Modal Butonu - Kartın Gövdesinin Altına Şık Bir Buton Olarak Ekle -->
             <xpath expr="//div[hasclass('o_kanban_record_body')]" position="inside">
                 <div class="mt-3">
-                    <button name="action_open_modal" type="object" 
+                    <button name="action_open_project_task_modal" type="object" 
                         class="btn btn-sm w-100 o_omniflow_open_btn" 
                         style="background: rgba(250, 204, 21, 0.1); border: 1px dashed rgba(250, 204, 21, 0.4); border-radius: 6px; color: #facc15; font-size: 0.85rem; font-weight: 500; padding: 4px 0; transition: all 0.2s;"
                         title="View Details">
@@ -53,16 +67,90 @@
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project_todo.project_task_view_todo_kanban"/>
         <field name="arch" type="xml">
+            <!-- Native Odoo way: Make the entire kanban card click open our modal -->
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="action">action_open_name_edit_modal</attribute>
+                <attribute name="type">object</attribute>
+            </xpath>
+            <!-- Force symmetry on the left and right kanban bottom sections -->
+            <xpath expr="//div[hasclass('oe_kanban_bottom_left')]" position="attributes">
+                <attribute name="style">flex: 1; display: flex; justify-content: flex-start; align-items: center;</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_kanban_bottom_right')]" position="attributes">
+                <attribute name="style">flex: 1; display: flex; justify-content: flex-end; align-items: center; transform: translate(10.5px, -3px);</attribute>
+            </xpath>
+
             <!-- Cancel Button at bottom left -->
             <xpath expr="//div[hasclass('oe_kanban_bottom_left')]" position="inside">
-                <button name="action_cancel_todo" type="object" class="btn btn-link p-0 text-danger" title="Cancel Task" style="display: flex; align-items: center; text-decoration: none; border: none; background: transparent; padding-top: 5px !important;">
-                    <i class="fa fa-times-circle" style="font-size: 1.3em; opacity: 0.6; transition: opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6"></i>
-                </button>
+                <t t-if="record.state.raw_value == '1_canceled'">
+                    <a name="action_cancel_todo" type="object" title="Restore Task" class="omniflow-restore-btn">
+                        <i class="fa fa-times-circle" style="font-size: 1.4em;"></i>
+                    </a>
+                </t>
+                <t t-else="">
+                    <a name="action_cancel_todo" type="object" title="Cancel Task" class="omniflow-cancel-btn">
+                        <i class="fa fa-times-circle" style="font-size: 1.4em;"></i>
+                    </a>
+                </t>
+            </xpath>
+
+            <!-- Centered Popup Button -->
+            <xpath expr="//div[hasclass('oe_kanban_bottom_left')]" position="after">
+                <div style="flex: 0 0 auto; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 10; opacity: 1 !important;">
+                    <button name="action_open_modal" type="object" class="btn" style="padding: 0 !important; display: flex; justify-content: center; align-items: center;" title="View Task Details">
+                        <div style="display: flex; justify-content: center; align-items: center; border: 1px dashed rgba(250, 204, 21, 0.4); border-radius: 4px; background-color: rgba(250, 204, 21, 0.05); color: #facc15 !important; font-size: 0.75rem; font-weight: 500; padding: 6px 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; white-space: nowrap;" 
+                             onmouseover="this.style.backgroundColor='rgba(250, 204, 21, 0.15)'; this.style.color='#ffffff'; this.style.borderColor='rgba(250, 204, 21, 1)'; this.style.transform='translateY(-2px)';" 
+                             onmouseout="this.style.backgroundColor='rgba(250, 204, 21, 0.05)'; this.style.color='#facc15'; this.style.borderColor='rgba(250, 204, 21, 0.4)'; this.style.transform='translateY(0)';">
+                            View Task Details
+                        </div>
+                    </button>
+                    <span style="color: #F3CE49 !important; font-weight: 500; font-size: 0.65rem; margin-top: 4px; letter-spacing: 0.2px;">Click anywhere in the task to edit its name</span>
+                </div>
             </xpath>
             
             <!-- Align the Done checkmark to the left by shifting its parent div -->
             <xpath expr="//field[@name='state'][@widget='todo_done_checkmark']/.." position="attributes">
-                <attribute name="style">margin-left: -4px;</attribute>
+                <attribute name="style">margin-left: -4px; position: relative; z-index: 10;</attribute>
+            </xpath>
+
+            <!-- Quick Edit Stretched Link to intercept card clicks -->
+            <!-- We keep opacity override and our cancel buttons styles -->
+            <xpath expr="//div[hasclass('oe_kanban_content')]" position="before">
+                <style>
+                    .o_kanban_record .opacity-50 {
+                        opacity: 0.8 !important;
+                    }
+                    /* Cancel Button Classes */
+                    .omniflow-cancel-btn {
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        margin-left: 0.5px; 
+                        transform: translateY(1.5px); 
+                        text-decoration: none; 
+                        cursor: pointer; 
+                        transition: color 0.2s; 
+                        position: relative; 
+                        z-index: 10; 
+                        color: #94a3b8 !important;
+                    }
+                    .omniflow-cancel-btn:hover {
+                        color: #ef4444 !important;
+                    }
+                    .omniflow-restore-btn {
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        margin-left: 0.5px; 
+                        transform: translateY(1.5px); 
+                        text-decoration: none; 
+                        cursor: pointer; 
+                        transition: color 0.2s; 
+                        position: relative; 
+                        z-index: 10; 
+                        color: #ef4444 !important;
+                    }
+                </style>
             </xpath>
         </field>
     </record>
@@ -76,13 +164,13 @@
             
             <xpath expr="//header" position="replace">
                 <header>
-                    <button name="action_request_start" string="Request Start Approval" type="object" class="btn-primary" invisible="omni_state != 'waiting'"/>
+                    <button name="action_request_start" string="Request Start Approval" type="object" class="btn-primary" invisible="omni_state != 'ideas'"/>
                     <button name="action_request_finish" string="Request Finish Approval" type="object" class="btn-primary" invisible="omni_state != 'in_progress'"/>
 
                     <button name="action_approve" string="Approve" type="object" class="btn-success" invisible="omni_state not in ('pending_start', 'pending_finish')" groups="omni_flow.group_omniflow_manager"/>
                     <button name="action_reject" string="Reject" type="object" class="btn-danger" invisible="omni_state not in ('pending_start', 'pending_finish')" groups="omni_flow.group_omniflow_manager"/>
 
-                    <field name="omni_state" widget="statusbar" statusbar_visible="waiting,pending_start,in_progress,pending_finish,done"/>
+                    <field name="omni_state" widget="statusbar" statusbar_visible="ideas,pending_start,in_progress,pending_finish,done"/>
                 </header>
             </xpath>
             
@@ -95,9 +183,18 @@
                 <div class="o_omniflow_form_help mb-4" style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 12px; padding: 24px; text-align: center;">
                     <i class="fa fa-pencil fa-3x mb-3" style="color: rgba(255,255,255,0.1);" title="Edit Note" aria-label="Edit Note"></i>
                     <h3 style="color: #cbd5e1; font-weight: 600;">Welcome to Task Details</h3>
-                    <p style="color: #94a3b8; font-size: 1.05rem; max-width: 600px; margin: 0 auto;">
+                    <p style="color: #94a3b8; font-size: 1.05rem; max-width: 600px; margin: 0 auto 16px auto;">
                         This is a <strong>Notion-style infinite workspace</strong> where you can collect all notes, details, and documents related to this task. Click below to start writing. <br/>Tip: Type <b>'/'</b> to add a heading, list, or file.
                     </p>
+                    <div style="background-color: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 12px 16px; display: inline-block; max-width: 550px; text-align: left;">
+                        <div style="color: #60a5fa; font-weight: 600; font-size: 0.95rem; margin-bottom: 4px;">
+                            <i class="fa fa-info-circle me-1"></i> Typing Tip (Important)
+                        </div>
+                        <div style="color: #93c5fd; font-size: 0.9rem; line-height: 1.5;">
+                            When you press <b>Shift + Enter</b>, it creates a new line in the <i>same block</i>. If you apply a Heading (H1, H2), it will affect the entire block! <br/>
+                            To write a Heading and then Normal text below it, make sure to press <b>Enter</b> to create a fresh, new block.
+                        </div>
+                    </div>
                 </div>
             </xpath>
             <xpath expr="//field[@name='description']" position="attributes">
@@ -123,6 +220,10 @@
             <xpath expr="//field[@name='user_ids']" position="replace">
                 <field name="user_ids" invisible="1"/>
             </xpath>
+            <!-- Başlık metin kutusunu textarea yaparak aşağı uzamasını sağla -->
+            <xpath expr="//field[@name='display_name']" position="attributes">
+                <attribute name="widget">text</attribute>
+            </xpath>
         </field>
     </record>
 
@@ -132,7 +233,10 @@
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project_todo.project_task_view_todo_form"/>
         <field name="arch" type="xml">
-            
+            <xpath expr="//header" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
             <xpath expr="//sheet" position="attributes">
                 <attribute name="class">o_omniflow_todo_sheet</attribute>
             </xpath>
@@ -141,9 +245,18 @@
                 <div class="o_omniflow_form_help mb-4" style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 12px; padding: 24px; text-align: center;">
                     <i class="fa fa-pencil fa-3x mb-3" style="color: rgba(255,255,255,0.1);"></i>
                     <h3 style="color: #cbd5e1; font-weight: 600;">Welcome to Task Details</h3>
-                    <p style="color: #94a3b8; font-size: 1.05rem; max-width: 600px; margin: 0 auto;">
+                    <p style="color: #94a3b8; font-size: 1.05rem; max-width: 600px; margin: 0 auto 16px auto;">
                         This is a <strong>Notion-style infinite workspace</strong> where you can collect all notes, details, and documents related to this task. Click below to start writing. <br/>Tip: Type <b>'/'</b> to add a heading, list, or file.
                     </p>
+                    <div style="background-color: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; padding: 12px 16px; display: inline-block; max-width: 550px; text-align: left;">
+                        <div style="color: #60a5fa; font-weight: 600; font-size: 0.95rem; margin-bottom: 4px;">
+                            <i class="fa fa-info-circle me-1"></i> Typing Tip (Important)
+                        </div>
+                        <div style="color: #93c5fd; font-size: 0.9rem; line-height: 1.5;">
+                            When you press <b>Shift + Enter</b>, it creates a new line in the <i>same block</i>. If you apply a Heading (H1, H2), it will affect the entire block! <br/>
+                            To write a Heading and then Normal text below it, make sure to press <b>Enter</b> to create a fresh, new block.
+                        </div>
+                    </div>
                 </div>
             </xpath>
             
@@ -159,6 +272,64 @@
     <record id="project_todo.project_task_action_todo" model="ir.actions.act_window">
         <!-- We override the context to remove search_default_open_tasks: 1 -->
         <field name="context">{'tree_view_ref': 'project_todo.project_task_view_todo_tree', 'default_project_id': False}</field>
+    </record>
+
+    <!-- Mini Pop-up for Quick Edit Name -->
+    <record id="omniflow_task_name_edit_form" model="ir.ui.view">
+        <field name="name">omniflow.task.name.edit.form</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <form string="Edit Task Name">
+                <sheet>
+                    <group>
+                        <field name="name" string="Task Name" placeholder="Enter task name..."/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Save" type="object" name="action_save_name" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Override Project List View to style the "View Tasks" button -->
+    <record id="omniflow_project_list_override" model="ir.ui.view">
+        <field name="name">omniflow.project.list.override</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='last_update_status']" position="replace">
+                <field name="last_update_status" string="Status" optional="show" widget="project_state_selection" options="{'hide_label': False}"/>
+            </xpath>
+            <xpath expr="//button[@name='action_view_tasks']" position="attributes">
+                <attribute name="class">omniflow-view-tasks-btn</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Override Project Kanban View to make cards open tasks -->
+    <record id="omniflow_project_kanban_override" model="ir.ui.view">
+        <field name="name">omniflow.project.kanban.override</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="arch" type="xml">
+            <!-- Add an invisible overlay link that triggers action_view_tasks -->
+            <xpath expr="//t[@t-name='kanban-box']/div" position="inside">
+                <a type="object" name="action_view_tasks" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: 1;"></a>
+            </xpath>
+            <!-- Ensure the dropdown menu and star icon are above the overlay -->
+            <xpath expr="//div[hasclass('o_kanban_card_manage_settings')]" position="attributes">
+                <attribute name="style">position: relative; z-index: 2;</attribute>
+            </xpath>
+            <xpath expr="//field[@name='is_favorite']" position="attributes">
+                <attribute name="style">position: relative; z-index: 2;</attribute>
+            </xpath>
+            <!-- Ensure the bottom right status bubble is above the overlay -->
+            <xpath expr="//div[hasclass('oe_kanban_bottom_right')]" position="attributes">
+                <attribute name="style">position: relative; z-index: 2;</attribute>
+            </xpath>
+        </field>
     </record>
 
 </odoo>

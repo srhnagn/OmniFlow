@@ -2,6 +2,9 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
+import logging
+_logger = logging.getLogger(__name__)
+
 class ProjectTask(models.Model):
     _inherit = 'project.task'
 
@@ -10,12 +13,12 @@ class ProjectTask(models.Model):
     omni_previous_stage_id = fields.Many2one('project.task.type', string='Previous Personal Stage')
 
     omni_state = fields.Selection([
-        ('waiting', 'Waiting'),
+        ('ideas', 'Ideas'),
         ('pending_start', 'Pending Start Approval'),
         ('in_progress', 'In Progress'),
         ('pending_finish', 'Pending Finish Approval'),
         ('done', 'Done')
-    ], string='OmniFlow Status', default='waiting', tracking=True, required=True, group_expand='_expand_states')
+    ], string='OmniFlow Status', default='ideas', tracking=True, required=True, group_expand='_expand_states')
 
     @api.model
     def _expand_states(self, states, domain, order):
@@ -28,9 +31,23 @@ class ProjectTask(models.Model):
                 if task.state not in ['1_done', '1_canceled'] and task.personal_stage_type_id:
                     task.omni_previous_stage_id = task.personal_stage_type_id
 
+        # If user drags the task to a different personal stage in Kanban, 
+        # Odoo sends 'personal_stage_type_id' in vals. We must update the state.
+        if 'personal_stage_type_id' in vals and vals['personal_stage_type_id']:
+            target_stage = self.env['project.task.type'].with_context(lang='en_US').browse(vals['personal_stage_type_id'])
+            _logger.info(f"OMNIFLOW DRAG DETECTED: target_stage.name (en_US) is '{target_stage.name}'")
+            if target_stage.name == 'Cancelled':
+                vals['state'] = '1_canceled'
+            elif target_stage.name == 'Done':
+                vals['state'] = '1_done'
+            elif target_stage.name not in ['Done', 'Cancelled']:
+                vals['state'] = '01_in_progress'
+
         res = super(ProjectTask, self).write(vals)
+        _logger.info(f"OMNIFLOW AFTER SUPER WRITE: DB state is now {self.mapped('state')}")
         
-        # Odoo 17 To-Do app logic override: 
+        # Odoo 17 To-Do app logic override:
+        # If user clicks the Done or Cancel checkmark button, update the personal stage accordingly
         if 'state' in vals:
             for task in self:
                 if vals['state'] in ['1_done', '1_canceled']:
@@ -45,17 +62,19 @@ class ProjectTask(models.Model):
                     if target_stage and task.personal_stage_type_id != target_stage:
                         task.personal_stage_type_id = target_stage.id
                 else:
-                    # Tick kaldırıldığında (örn: 01_in_progress)
-                    if task.personal_stage_type_id and task.personal_stage_type_id.name in ['Done', 'Cancelled']:
-                        if task.omni_previous_stage_id:
-                            task.personal_stage_type_id = task.omni_previous_stage_id.id
-                        else:
-                            today_stage = self.env['project.task.type'].search([
-                                ('user_id', '=', self.env.uid),
-                                ('name', '=', 'Today')
-                            ], limit=1)
-                            if today_stage:
-                                task.personal_stage_type_id = today_stage.id
+                    # Tick kaldırıldığında veya iptal geri alındığında (örn: 01_in_progress)
+                    if task.personal_stage_type_id:
+                        stage_en = task.personal_stage_type_id.with_context(lang='en_US')
+                        if stage_en.name in ['Done', 'Cancelled']:
+                            if task.omni_previous_stage_id:
+                                task.personal_stage_type_id = task.omni_previous_stage_id.id
+                            else:
+                                today_stage = self.env['project.task.type'].search([
+                                    ('user_id', '=', self.env.uid),
+                                    ('name', '=', 'Today')
+                                ], limit=1)
+                                if today_stage:
+                                    task.personal_stage_type_id = today_stage.id
                     
         return res
 
@@ -99,8 +118,8 @@ class ProjectTask(models.Model):
     def action_reject(self):
         for task in self:
             if task.omni_state == 'pending_start':
-                task.write({'omni_state': 'waiting'})
-                task.message_post(body=_("Task START request was REJECTED. Sent back to Waiting."))
+                task.write({'omni_state': 'ideas'})
+                task.message_post(body=_("Task START request was REJECTED. Sent back to Ideas."))
             elif task.omni_state == 'pending_finish':
                 task.write({'omni_state': 'in_progress'})
                 task.message_post(body=_("Task FINISH request was REJECTED. Sent back to In Progress."))
@@ -109,11 +128,45 @@ class ProjectTask(models.Model):
 
     def action_open_modal(self):
         self.ensure_one()
+        view_id = self.env.ref('project_todo.project_task_view_todo_form').id
         return {
             'name': _('Task Details'),
             'type': 'ir.actions.act_window',
             'res_model': 'project.task',
             'res_id': self.id,
             'view_mode': 'form',
+            'view_id': view_id,
             'target': 'new',
         }
+
+    def action_open_name_edit_modal(self):
+        self.ensure_one()
+        view_id = self.env.ref('omni_flow.omniflow_task_name_edit_form').id
+        return {
+            'name': _('Edit Task Name'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'project.task',
+            'res_id': self.id,
+            'view_mode': 'form',
+            'view_id': view_id,
+            'target': 'new',
+        }
+
+    def action_open_project_task_modal(self):
+        self.ensure_one()
+        # Open standard project task form in a modal
+        view_id = self.env.ref('project.view_task_form2').id
+        return {
+            'name': _('Task Details'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'project.task',
+            'res_id': self.id,
+            'view_mode': 'form',
+            'view_id': view_id,
+            'target': 'new',
+            'flags': {'mode': 'edit'}, # open in edit mode directly for speed
+        }
+
+    def action_save_name(self):
+        self.ensure_one()
+        return {'type': 'ir.actions.act_window_close'}
