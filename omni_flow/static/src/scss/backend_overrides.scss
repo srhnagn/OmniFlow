@@ -1011,7 +1011,7 @@ i.fa-video-camera,
     display: none !important;
 }
 
-/* Sadece 'ideas' aşamasında + (Hızlı Oluştur) butonunu göster, diğerlerinde gizle */
-.o_kanban_group:not([data-id="ideas"]) .o_kanban_header .o_kanban_quick_add {
+/* Sadece ilk aşama olan 'Ideas' (Fikirler) kolonunda + (Hızlı Oluştur) butonunu göster, diğerlerinde gizle */
+.o_kanban_group:not(:first-child) .o_kanban_header .o_kanban_quick_add {
     display: none !important;
 }
