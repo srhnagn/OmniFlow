@@ -25,6 +25,11 @@ action = env['project.task.type'].action_load_default_stages()
         <field name="active" eval="False"/>
     </record>
 
+    <!-- Restrict All Tasks menu to Superadmin (System Admin) -->
+    <record id="project.menu_project_management_all_tasks" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_system')])]"/>
+    </record>
+
     <!-- HIDE Configuration -> Projects Menus -->
     <record id="project.menu_projects_config" model="ir.ui.menu">
         <field name="active" eval="False"/>

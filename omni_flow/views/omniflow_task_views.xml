@@ -30,9 +30,9 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
 
-            <!-- Remove assignee avatars from Kanban cards -->
+            <!-- Remove assignee avatars from Kanban cards ONLY for Private Tasks (To-Do) -->
             <xpath expr="//templates//field[@name='user_ids'][@widget='many2many_avatar_user']" position="attributes">
-                <attribute name="invisible">1</attribute>
+                <attribute name="invisible">not project_id</attribute>
             </xpath>
 
             <!-- Add Delete button to hamburger menu -->
@@ -333,6 +333,7 @@
     
     <record id="project.action_view_all_task" model="ir.actions.act_window">
         <field name="view_mode">kanban,form,calendar,pivot,activity</field>
+        <field name="domain">[('project_id', '!=', False)]</field>
     </record>
 
     <!-- Mini Pop-up for Quick Edit Name -->
