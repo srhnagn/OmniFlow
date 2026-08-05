@@ -303,25 +303,25 @@
 
     <!-- Override To-Do Action Context and Enforce Views -->
     <record id="project_todo.project_task_action_todo" model="ir.actions.act_window">
-        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
+        <field name="view_mode">kanban,form,calendar,pivot,activity</field>
         <field name="context">{'default_project_id': False}</field>
     </record>
 
-    <!-- Restrict Main Task Actions (Remove List) -->
+    <!-- Restrict Main Task Actions (Remove List and Graph) -->
     <record id="project.act_project_project_2_project_task_all" model="ir.actions.act_window">
-        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
+        <field name="view_mode">kanban,form,calendar,pivot,activity</field>
     </record>
 
     <record id="project.action_view_task" model="ir.actions.act_window">
-        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
+        <field name="view_mode">kanban,form,calendar,pivot,activity</field>
     </record>
 
     <record id="project.action_view_my_task" model="ir.actions.act_window">
-        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
+        <field name="view_mode">kanban,form,calendar,pivot,activity</field>
     </record>
     
     <record id="project.action_view_all_task" model="ir.actions.act_window">
-        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
+        <field name="view_mode">kanban,form,calendar,pivot,activity</field>
     </record>
 
     <!-- Mini Pop-up for Quick Edit Name -->

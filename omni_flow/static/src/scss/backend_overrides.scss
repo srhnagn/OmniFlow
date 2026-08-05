@@ -1127,8 +1127,9 @@ i.fa-video-camera,
     display: none !important;
 }
 
-/* Kullanıcının talebi: Kanban ve List butonlarını view switcher'dan tamamen kaldır */
+/* Kullanıcının talebi: Kanban, List ve Graph butonlarını view switcher'dan tamamen kaldır */
 .o_cp_switch_buttons .o_switch_view.o_kanban,
-.o_cp_switch_buttons .o_switch_view.o_list {
+.o_cp_switch_buttons .o_switch_view.o_list,
+.o_cp_switch_buttons .o_switch_view.o_graph {
     display: none !important;
 }
