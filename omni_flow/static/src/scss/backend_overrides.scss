@@ -182,6 +182,15 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
     flex: 0 0 auto !important; /* BÜYÜMESİN! İçeriği kadar kalsın ki butonların üstüne binmesin */
 }
 
+/* Task Title Rengi — Altın Sarısı */
+.o_kanban_view .o_kanban_quick_create .o_form_label {
+    color: #facc15 !important;
+    font-weight: 700 !important;
+    opacity: 1 !important;
+    font-size: 1rem !important;
+    margin-bottom: 8px !important;
+}
+
 /* Buton Satırı — Zorla İçeri Alıyoruz */
 .o_kanban_view .o_kanban_quick_create > div.d-flex {
     position: absolute !important;
