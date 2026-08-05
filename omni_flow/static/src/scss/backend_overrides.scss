@@ -1059,51 +1059,46 @@ i.fa-video-camera,
 }
 
 /* =========================================
-   CUSTOM BADGE FOR OMNI STATE (TO AVOID ODOO BUG)
+   PREMIUM NEON BADGES FOR OMNI STATE
    ========================================= */
-.o_list_view td[name="omni_state"] > span {
-    display: inline-block;
-    padding: 0.25em 0.6em;
-    font-size: 0.85em;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-    border-radius: 4px;
+.o_list_view .o_data_row td[name="omni_state_badge"] .badge {
+    font-weight: 800 !important;
+    font-style: italic !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    border-radius: 6px !important;
+    padding: 0.4em 0.7em !important;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2) !important;
 }
 
-/* Info (Ideas) */
-.o_list_view td[name="omni_state"].text-info > span,
-.o_list_view td[name="omni_state"] > span.text-info,
-.o_list_view td[name="omni_state"] > span:has(.text-info) {
-    background-color: rgba(14, 165, 233, 0.15) !important;
-    border: 1px solid rgba(14, 165, 233, 0.3) !important;
-    color: #0ea5e9 !important;
+/* Neon Info (Ideas) */
+.o_list_view .o_data_row td[name="omni_state_badge"] .badge.text-bg-info {
+    background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(14, 165, 233, 0.6) !important;
+    border: 1px solid rgba(14, 165, 233, 0.8) !important;
 }
 
-/* Warning (Pending Start/Finish) */
-.o_list_view td[name="omni_state"].text-warning > span,
-.o_list_view td[name="omni_state"] > span.text-warning,
-.o_list_view td[name="omni_state"] > span:has(.text-warning) {
-    background-color: rgba(245, 158, 11, 0.15) !important;
-    border: 1px solid rgba(245, 158, 11, 0.3) !important;
-    color: #f59e0b !important;
+/* Neon Warning (Pending Start/Finish) */
+.o_list_view .o_data_row td[name="omni_state_badge"] .badge.text-bg-warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.6) !important;
+    border: 1px solid rgba(245, 158, 11, 0.8) !important;
 }
 
-/* Success (Done) */
-.o_list_view td[name="omni_state"].text-success > span,
-.o_list_view td[name="omni_state"] > span.text-success,
-.o_list_view td[name="omni_state"] > span:has(.text-success) {
-    background-color: rgba(34, 197, 94, 0.15) !important;
-    border: 1px solid rgba(34, 197, 94, 0.3) !important;
-    color: #22c55e !important;
+/* Neon Success (Done) */
+.o_list_view .o_data_row td[name="omni_state_badge"] .badge.text-bg-success {
+    background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.6) !important;
+    border: 1px solid rgba(34, 197, 94, 0.8) !important;
 }
 
-/* Primary (In Progress) */
-.o_list_view td[name="omni_state"].text-primary > span,
-.o_list_view td[name="omni_state"] > span.text-primary,
-.o_list_view td[name="omni_state"] > span:has(.text-primary) {
-    background-color: rgba(59, 130, 246, 0.15) !important;
-    border: 1px solid rgba(59, 130, 246, 0.3) !important;
-    color: #3b82f6 !important;
+/* Neon Primary (In Progress) */
+.o_list_view .o_data_row td[name="omni_state_badge"] .badge.text-bg-primary {
+    background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.6) !important;
+    border: 1px solid rgba(59, 130, 246, 0.8) !important;
 }

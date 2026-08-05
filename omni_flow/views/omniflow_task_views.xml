@@ -74,7 +74,8 @@
             </xpath>
             <!-- Normal Stage ID'yi tamamen gizleyip kendi omni_state (Stage) alanımızı ekliyoruz -->
             <xpath expr="//field[@name='stage_id']" position="replace">
-                <field name="omni_state" string="Stage" decoration-info="omni_state == 'ideas'" decoration-warning="omni_state == 'pending_start' or omni_state == 'pending_finish'" decoration-success="omni_state == 'done'" decoration-primary="omni_state == 'in_progress'"/>
+                <field name="omni_state" column_invisible="1" />
+                <field name="omni_state_badge" string="Stage" widget="badge" decoration-info="omni_state_badge == 'ideas'" decoration-warning="omni_state_badge in ('pending_start', 'pending_finish')" decoration-success="omni_state_badge == 'done'" decoration-primary="omni_state_badge == 'in_progress'"/>
             </xpath>
         </field>
     </record>
