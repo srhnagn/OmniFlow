@@ -365,4 +365,15 @@
         </field>
     </record>
 
+    <!-- KANBAN ONLY: Remove List (Tree) view from task actions because of OWL group expansion bug -->
+    <record id="project.act_project_project_2_project_task_all" model="ir.actions.act_window">
+        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
+    </record>
+    <record id="project.action_view_task" model="ir.actions.act_window">
+        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
+    </record>
+    <record id="project.action_view_my_task" model="ir.actions.act_window">
+        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
+    </record>
+
 </odoo>
