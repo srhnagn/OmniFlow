@@ -301,10 +301,27 @@
         </field>
     </record>
 
-    <!-- Override To-Do Action Context to show closed tasks in their respective stages (e.g. Done stage) -->
+    <!-- Override To-Do Action Context and Enforce Kanban-Only Mode -->
     <record id="project_todo.project_task_action_todo" model="ir.actions.act_window">
-        <!-- We override the context to remove search_default_open_tasks: 1 -->
-        <field name="context">{'tree_view_ref': 'project_todo.project_task_view_todo_tree', 'default_project_id': False}</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="context">{'default_project_id': False}</field>
+    </record>
+
+    <!-- Enforce Kanban-Only Mode for All Main Task Actions -->
+    <record id="project.act_project_project_2_project_task_all" model="ir.actions.act_window">
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+    <record id="project.action_view_task" model="ir.actions.act_window">
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+    <record id="project.action_view_my_task" model="ir.actions.act_window">
+        <field name="view_mode">kanban,form</field>
+    </record>
+    
+    <record id="project.action_view_all_task" model="ir.actions.act_window">
+        <field name="view_mode">kanban,form</field>
     </record>
 
     <!-- Mini Pop-up for Quick Edit Name -->
@@ -363,17 +380,6 @@
                 <attribute name="style">position: relative; z-index: 2;</attribute>
             </xpath>
         </field>
-    </record>
-
-    <!-- KANBAN ONLY: Remove List (Tree) view from task actions because of OWL group expansion bug -->
-    <record id="project.act_project_project_2_project_task_all" model="ir.actions.act_window">
-        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
-    </record>
-    <record id="project.action_view_task" model="ir.actions.act_window">
-        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
-    </record>
-    <record id="project.action_view_my_task" model="ir.actions.act_window">
-        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
     </record>
 
 </odoo>
