@@ -1122,10 +1122,7 @@ i.fa-video-camera,
     border: 1px solid rgba(59, 130, 246, 0.8) !important;
 }
 
-/* Sadece Ideas Sütununda Hızlı Görev Ekle (+) Butonunu Göster */
-.o_kanban_group:not([data-id*="ideas"]) .o_kanban_quick_add {
-    display: none !important;
-}
+
 
 /* Kullanıcının talebi: Kanban, List ve Graph butonlarını view switcher'dan tamamen kaldır */
 .o_cp_switch_buttons .o_switch_view.o_kanban,
