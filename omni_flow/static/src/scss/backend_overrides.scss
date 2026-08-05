@@ -179,7 +179,7 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
 .o_kanban_view .o_kanban_quick_create .o_form_view {
     padding: 0 !important;
     background: transparent !important;
-    flex: 1 1 auto !important;
+    flex: 0 0 auto !important; /* Düzeltme: Textarea'nın aşağıya kadar uzayıp butonların alanını işgal etmesini engelledik! */
 }
 
 /* Buton Satırı — Zorla İçeri Alıyoruz */
@@ -205,18 +205,30 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
 }
 
 .o_kanban_quick_create input,
-.o_kanban_quick_create textarea,
-.o_kanban_quick_create .o_field_widget {
+.o_kanban_quick_create textarea {
     background-color: rgba(255, 255, 255, 0.05) !important;
     color: #ffffff !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 6px !important;
     padding: 8px !important;
+    min-height: 40px !important;
 }
 .o_kanban_quick_create input::placeholder,
 .o_kanban_quick_create textarea::placeholder {
     color: #f8fafc !important; /* Placeholder bembeyaz olsun */
     font-weight: 600;
+}
+
+/* Odoo'nun form widget'ındaki varsayılan alt kenarlıklarını tamamen siliyoruz */
+.o_kanban_quick_create .o_field_widget {
+    border: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+.o_kanban_quick_create .o_field_widget::after,
+.o_kanban_quick_create .o_field_widget::before {
+    display: none !important;
 }
 .o_kanban_quick_create .o_kanban_add {
     background-color: #facc15 !important;
