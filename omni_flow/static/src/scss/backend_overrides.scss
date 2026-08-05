@@ -1053,8 +1053,8 @@ i.fa-video-camera,
     display: none !important;
 }
 
-/* Sadece ilk aşama olan 'Ideas' (Fikirler) kolonunda + (Hızlı Oluştur) butonunu göster, diğerlerinde gizle */
-.o_kanban_group:not(:first-child) .o_kanban_header .o_kanban_quick_add {
+/* Sadece Project Tasks'te ilk kolon haricinde + (Hızlı Oluştur) butonunu gizle */
+.o_omniflow_kanban .o_kanban_group:not(:first-child) .o_kanban_header .o_kanban_quick_add {
     display: none !important;
 }
 
