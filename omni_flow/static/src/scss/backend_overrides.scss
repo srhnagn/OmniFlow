@@ -1061,6 +1061,12 @@ i.fa-video-camera,
 /* =========================================
    PREMIUM NEON BADGES FOR OMNI STATE
    ========================================= */
+.o_list_view .o_data_row td[name="omni_state_badge"] {
+    max-width: none !important;
+    white-space: nowrap !important;
+    width: auto !important;
+}
+
 .o_list_view .o_data_row td[name="omni_state_badge"] .badge {
     font-weight: 800 !important;
     font-style: italic !important;
@@ -1069,6 +1075,11 @@ i.fa-video-camera,
     border-radius: 6px !important;
     padding: 0.4em 0.7em !important;
     box-shadow: 0 0 10px rgba(0,0,0,0.2) !important;
+    text-overflow: unset !important;
+    overflow: visible !important;
+    max-width: none !important;
+    display: inline-block !important;
+    width: auto !important;
 }
 
 /* Neon Info (Ideas) */
