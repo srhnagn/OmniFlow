@@ -1057,3 +1057,53 @@ i.fa-video-camera,
 .o_kanban_group:not(:first-child) .o_kanban_header .o_kanban_quick_add {
     display: none !important;
 }
+
+/* =========================================
+   CUSTOM BADGE FOR OMNI STATE (TO AVOID ODOO BUG)
+   ========================================= */
+.o_list_view td[name="omni_state"] > span {
+    display: inline-block;
+    padding: 0.25em 0.6em;
+    font-size: 0.85em;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 4px;
+}
+
+/* Info (Ideas) */
+.o_list_view td[name="omni_state"].text-info > span,
+.o_list_view td[name="omni_state"] > span.text-info,
+.o_list_view td[name="omni_state"] > span:has(.text-info) {
+    background-color: rgba(14, 165, 233, 0.15) !important;
+    border: 1px solid rgba(14, 165, 233, 0.3) !important;
+    color: #0ea5e9 !important;
+}
+
+/* Warning (Pending Start/Finish) */
+.o_list_view td[name="omni_state"].text-warning > span,
+.o_list_view td[name="omni_state"] > span.text-warning,
+.o_list_view td[name="omni_state"] > span:has(.text-warning) {
+    background-color: rgba(245, 158, 11, 0.15) !important;
+    border: 1px solid rgba(245, 158, 11, 0.3) !important;
+    color: #f59e0b !important;
+}
+
+/* Success (Done) */
+.o_list_view td[name="omni_state"].text-success > span,
+.o_list_view td[name="omni_state"] > span.text-success,
+.o_list_view td[name="omni_state"] > span:has(.text-success) {
+    background-color: rgba(34, 197, 94, 0.15) !important;
+    border: 1px solid rgba(34, 197, 94, 0.3) !important;
+    color: #22c55e !important;
+}
+
+/* Primary (In Progress) */
+.o_list_view td[name="omni_state"].text-primary > span,
+.o_list_view td[name="omni_state"] > span.text-primary,
+.o_list_view td[name="omni_state"] > span:has(.text-primary) {
+    background-color: rgba(59, 130, 246, 0.15) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3) !important;
+    color: #3b82f6 !important;
+}
