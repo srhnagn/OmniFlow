@@ -387,4 +387,28 @@
         </field>
     </record>
 
+    <!-- Override My Tasks Kanban View Group By -->
+    <record id="omniflow_view_task_kanban_inherit_my_task" model="ir.ui.view">
+        <field name="name">omniflow.task.kanban.my.task</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban_inherit_my_task"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="default_group_by">omni_state</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Override All Tasks Kanban View Group By -->
+    <record id="omniflow_view_task_kanban_inherit_all_task" model="ir.ui.view">
+        <field name="name">omniflow.task.kanban.all.task</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban_inherit_all_task"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="default_group_by">omni_state</attribute>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
