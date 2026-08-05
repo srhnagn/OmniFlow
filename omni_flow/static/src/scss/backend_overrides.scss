@@ -1061,13 +1061,13 @@ i.fa-video-camera,
 /* =========================================
    PREMIUM NEON BADGES FOR OMNI STATE
    ========================================= */
-.o_list_view .o_data_row td[name="omni_state_badge"] {
+.o_list_view .o_data_row td[name="omni_state"] {
     max-width: none !important;
     white-space: nowrap !important;
     width: auto !important;
 }
 
-.o_list_view .o_data_row td[name="omni_state_badge"] .badge {
+.o_list_view .o_data_row td[name="omni_state"] > span {
     font-weight: 800 !important;
     font-style: italic !important;
     text-transform: uppercase !important;
@@ -1083,7 +1083,9 @@ i.fa-video-camera,
 }
 
 /* Neon Info (Ideas) */
-.o_list_view .o_data_row td[name="omni_state_badge"] .badge.text-bg-info {
+.o_list_view .o_data_row td[name="omni_state"].text-info > span,
+.o_list_view .o_data_row td[name="omni_state"] > span.text-info,
+.o_list_view .o_data_row td[name="omni_state"] > span:has(.text-info) {
     background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
     color: #ffffff !important;
     box-shadow: 0 0 12px rgba(14, 165, 233, 0.6) !important;
@@ -1091,7 +1093,9 @@ i.fa-video-camera,
 }
 
 /* Neon Warning (Pending Start/Finish) */
-.o_list_view .o_data_row td[name="omni_state_badge"] .badge.text-bg-warning {
+.o_list_view .o_data_row td[name="omni_state"].text-warning > span,
+.o_list_view .o_data_row td[name="omni_state"] > span.text-warning,
+.o_list_view .o_data_row td[name="omni_state"] > span:has(.text-warning) {
     background: linear-gradient(135deg, #f59e0b, #d97706) !important;
     color: #ffffff !important;
     box-shadow: 0 0 12px rgba(245, 158, 11, 0.6) !important;
@@ -1099,7 +1103,9 @@ i.fa-video-camera,
 }
 
 /* Neon Success (Done) */
-.o_list_view .o_data_row td[name="omni_state_badge"] .badge.text-bg-success {
+.o_list_view .o_data_row td[name="omni_state"].text-success > span,
+.o_list_view .o_data_row td[name="omni_state"] > span.text-success,
+.o_list_view .o_data_row td[name="omni_state"] > span:has(.text-success) {
     background: linear-gradient(135deg, #22c55e, #16a34a) !important;
     color: #ffffff !important;
     box-shadow: 0 0 12px rgba(34, 197, 94, 0.6) !important;
@@ -1107,7 +1113,9 @@ i.fa-video-camera,
 }
 
 /* Neon Primary (In Progress) */
-.o_list_view .o_data_row td[name="omni_state_badge"] .badge.text-bg-primary {
+.o_list_view .o_data_row td[name="omni_state"].text-primary > span,
+.o_list_view .o_data_row td[name="omni_state"] > span.text-primary,
+.o_list_view .o_data_row td[name="omni_state"] > span:has(.text-primary) {
     background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
     color: #ffffff !important;
     box-shadow: 0 0 12px rgba(59, 130, 246, 0.6) !important;
