@@ -164,15 +164,16 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
     background-color: #0f172a !important;
     border: 1px solid rgba(250, 204, 21, 0.4) !important;
     border-radius: 8px !important;
-    margin: 8px !important;
-    padding: 12px !important;
+    margin: 8px 8px 16px 8px !important; /* Altından daha fazla boşluk bırak */
+    padding: 12px 12px 16px 12px !important; /* Alt padding ekleyerek butonları sarmasını sağla */
     box-shadow: none !important;
     
     display: flex !important;
     flex-direction: column !important;
-    height: auto !important;
-    min-height: auto !important;
+    height: max-content !important; /* İçeriğe göre uza */
+    min-height: fit-content !important;
     position: relative !important;
+    overflow: visible !important;
 }
 
 /* Form Alanı (Sadece Input kısmı) */
@@ -185,10 +186,12 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
 /* Buton Satırı — Doğal Akışa Bırakıyoruz */
 .o_kanban_view .o_kanban_quick_create > div.d-flex {
     position: relative !important;
-    margin-top: 12px !important;
+    margin-top: 16px !important; /* Input ile butonlar arası mesafe */
+    margin-bottom: 4px !important; /* Kutu altına mesafe */
     padding-top: 0 !important;
     border-top: none !important;
     display: flex !important;
+    flex: 0 0 auto !important; /* Büzülmesin */
 }
 
 /* Task Title Label Rengini Açık Yap */
