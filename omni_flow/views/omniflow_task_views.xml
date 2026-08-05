@@ -61,6 +61,33 @@
         </field>
     </record>
 
+    <!-- Tree View (Liste Görünümü) Override -->
+    <record id="omniflow_task_tree_override" model="ir.ui.view">
+        <field name="name">omniflow.task.tree.override</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field name="arch" type="xml">
+            <!-- Normal Stage ID'yi tamamen gizleyip kendi omni_state (Stage) alanımızı ekliyoruz -->
+            <xpath expr="//field[@name='stage_id']" position="replace">
+                <field name="omni_state" string="Stage" widget="badge" decoration-info="omni_state == 'ideas'" decoration-warning="omni_state in ('pending_start', 'pending_finish')" decoration-success="omni_state == 'done'" decoration-primary="omni_state == 'in_progress'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Search View (Arama/Gruplama Görünümü) Override -->
+    <record id="omniflow_task_search_override" model="ir.ui.view">
+        <field name="name">omniflow.task.search.override</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form"/>
+        <field name="arch" type="xml">
+            <!-- "Group By -> Stage" filtresini standart stage_id yerine omni_state ile gruplamak üzere değiştiriyoruz -->
+            <xpath expr="//filter[@name='stage']" position="replace">
+                <filter string="Stage" name="stage" context="{'group_by': 'omni_state'}"/>
+            </xpath>
+        </field>
+    </record>
+
+
     <!-- To-Do Kanban View Override for OmniFlow -->
     <record id="omniflow_todo_task_kanban_override" model="ir.ui.view">
         <field name="name">omniflow.todo.task.kanban.override</field>
