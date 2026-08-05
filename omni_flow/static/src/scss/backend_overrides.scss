@@ -291,7 +291,6 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
 
 /* Liste (Tree) Görünümü Uzun Metinlerin Taşmasını Engelleme / Satır Atlama */
 /* SADECE 'name' (Title) alanını hedefliyoruz, avatarları ve diğer bileşenleri bozmaması için! */
-/* TEMP DISABLED TO TEST GROUPING BUG
 .o_list_view .o_data_row td[name="name"],
 .o_list_view .o_data_row td[name="name"] div,
 .o_list_view .o_data_row td[name="name"] span {
@@ -301,7 +300,6 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
     overflow: visible !important;
     height: auto !important;
 }
-*/
 
 /* Uzun metinlerin kartlardan taşmasını (overflow) engelle ve HTML tag'lerini düzelt */
 .o_kanban_record_title {

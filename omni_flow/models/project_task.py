@@ -20,6 +20,8 @@ class ProjectTask(models.Model):
         ('done', 'Done')
     ], string='OmniFlow Status', default='ideas', tracking=True, required=True)
 
+    omni_state_display = fields.Selection(related='omni_state', string='Stage', readonly=True)
+
     @api.model
     def _expand_states(self, states, domain, order):
         return [key for key, val in type(self).omni_state.selection]
