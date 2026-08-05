@@ -2,25 +2,40 @@
 
 import { Group } from "@web/model/relational_model/group";
 import { patch } from "@web/core/utils/patch";
+import { browser } from "@web/core/browser/browser";
 
 patch(Group.prototype, {
+    setup(config, data) {
+        super.setup(...arguments);
+        const resModel = this.resModel || (this.config && this.config.resModel) || (this.model && this.model.resModel);
+        
+        if (resModel === "project.task" && this.groupByField && this.groupByField.name === "omni_state" && this.value) {
+            const stateVal = Array.isArray(this.value) ? this.value[0] : this.value;
+            if (stateVal) {
+                const storageKey = `omniflow_fold_${stateVal}`;
+                const savedState = browser.localStorage.getItem(storageKey);
+                if (savedState === "true") {
+                    this.config.isFolded = true;
+                } else if (savedState === "false") {
+                    this.config.isFolded = false;
+                }
+            }
+        }
+    },
+
     async toggle() {
         const resModel = this.resModel || (this.config && this.config.resModel) || (this.model && this.model.resModel);
-        const isOmniFlow = resModel === "project.task" && this.groupByField && this.groupByField.name === "personal_stage_type_id";
         
         // Native toggle
         const result = await super.toggle(...arguments);
         
-        if (isOmniFlow && this.value) {
-            // value could be an array [id, label] or just id
-            const stageId = Array.isArray(this.value) ? this.value[0] : this.value;
-            
-            if (stageId && this.model && this.model.orm) {
-                // Force save the fold state to the database for the user's personal stage
+        // Handle localStorage persistence for omni_state
+        if (resModel === "project.task" && this.groupByField && this.groupByField.name === "omni_state" && this.value) {
+            const stateVal = Array.isArray(this.value) ? this.value[0] : this.value;
+            if (stateVal) {
                 const isFolded = this.config ? this.config.isFolded : this.isFolded;
-                await this.model.orm.write("project.task.type", [stageId], {
-                    fold: isFolded,
-                });
+                const storageKey = `omniflow_fold_${stateVal}`;
+                browser.localStorage.setItem(storageKey, isFolded ? "true" : "false");
             }
         }
         
