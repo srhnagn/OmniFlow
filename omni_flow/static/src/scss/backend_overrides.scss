@@ -290,10 +290,10 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
 }
 
 /* Liste (Tree) Görünümü Uzun Metinlerin Taşmasını Engelleme / Satır Atlama */
-.o_list_view .o_data_row td, 
-.o_list_view .o_data_cell,
-.o_list_view .o_data_row td *,
-.o_list_view .o_data_cell * {
+/* SADECE 'name' (Title) alanını hedefliyoruz, avatarları ve diğer bileşenleri bozmaması için! */
+.o_list_view .o_data_row td[name="name"],
+.o_list_view .o_data_row td[name="name"] div,
+.o_list_view .o_data_row td[name="name"] span {
     white-space: normal !important;
     word-break: break-word !important;
     text-overflow: clip !important;
