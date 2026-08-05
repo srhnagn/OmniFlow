@@ -18,7 +18,7 @@ class ProjectTask(models.Model):
         ('in_progress', 'In Progress'),
         ('pending_finish', 'Pending Finish Approval'),
         ('done', 'Done')
-    ], string='OmniFlow Status', default='ideas', tracking=True, required=True, group_expand='_expand_states')
+    ], string='OmniFlow Status', default='ideas', tracking=True, required=True)
 
     @api.model
     def _expand_states(self, states, domain, order):
