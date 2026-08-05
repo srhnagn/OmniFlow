@@ -159,19 +159,19 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
     background-color: transparent !important;
 }
 
-/* Hızlı Görev Ekleme (Quick Create) Alanı — En agresif çözüm */
+/* Hızlı Görev Ekleme (Quick Create) Alanı — Kurşun Geçirmez Layout */
 .o_kanban_view .o_kanban_quick_create {
     background-color: #0f172a !important;
     border: 1px solid rgba(250, 204, 21, 0.4) !important;
     border-radius: 8px !important;
     margin: 8px !important;
-    padding: 12px 12px 50px 12px !important; /* Alt kısma zorla 50px boşluk veriyoruz ki butonlar içine düşsün */
+    padding: 12px !important; /* Alt kısma zorla boşluk VERMİYORUZ */
     box-shadow: none !important;
     
     display: flex !important;
     flex-direction: column !important;
     height: auto !important;
-    min-height: 120px !important;
+    min-height: auto !important;
     position: relative !important;
 }
 
@@ -179,20 +179,18 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
 .o_kanban_view .o_kanban_quick_create .o_form_view {
     padding: 0 !important;
     background: transparent !important;
-    flex: 0 0 auto !important; /* Düzeltme: Textarea'nın aşağıya kadar uzayıp butonların alanını işgal etmesini engelledik! */
+    flex: 0 0 auto !important; /* Kesinlikle aşağı doğru gereksiz uzamasın! */
+    margin-bottom: 12px !important; /* Butonlarla arasına güvenli mesafe */
 }
 
-/* Buton Satırı — Zorla İçeri Alıyoruz */
+/* Buton Satırı — Doğal Akış (Asla Absolute Değil) */
 .o_kanban_view .o_kanban_quick_create > div.d-flex {
-    position: absolute !important;
-    bottom: 8px !important;
-    left: 8px !important;
-    right: 8px !important;
-    padding-top: 8px !important;
-    border-top: none !important; /* Düzeltme: Mor çizgiye sebep olan üst kenarlığı kaldırdık */
-    margin-top: 0 !important;
+    position: static !important; /* Havada asılı kalmasın, formun hemen altına otursun */
+    margin: 0 !important;
+    padding: 0 !important;
+    border-top: none !important;
     display: flex !important;
-    z-index: 10 !important; /* Butonların her şeyin üstünde olmasını garantile */
+    flex: 0 0 auto !important;
 }
 
 /* Task Title Label Rengini Açık Yap */
@@ -211,7 +209,10 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 6px !important;
     padding: 8px !important;
+    height: auto !important; /* Boyu içeriğe göre ayarlansın */
     min-height: 40px !important;
+    resize: vertical !important; /* Kullanıcı isterse büyütsün */
+    margin: 0 !important;
 }
 .o_kanban_quick_create input::placeholder,
 .o_kanban_quick_create textarea::placeholder {
