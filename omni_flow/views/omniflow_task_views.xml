@@ -20,8 +20,13 @@
                 <field name="description"/>
             </xpath>
 
-            <!-- Hide customer (partner_id) on Kanban cards -->
-            <xpath expr="//templates//field[@name='partner_id']" position="attributes">
+            <!-- Completely remove customer (partner_id) span from Kanban cards -->
+            <xpath expr="//templates//span[@t-if='record.partner_id.value']" position="replace">
+                <!-- Customer info removed -->
+            </xpath>
+
+            <!-- Remove Odoo native state widget from kanban cards -->
+            <xpath expr="//templates//field[@name='state'][@widget='project_task_state_selection']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
 
