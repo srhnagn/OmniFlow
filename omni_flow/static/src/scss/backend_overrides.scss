@@ -1121,3 +1121,8 @@ i.fa-video-camera,
     box-shadow: 0 0 12px rgba(59, 130, 246, 0.6) !important;
     border: 1px solid rgba(59, 130, 246, 0.8) !important;
 }
+
+/* Sadece Ideas Sütununda Hızlı Görev Ekle (+) Butonunu Göster */
+.o_kanban_group:not([data-id*="ideas"]) .o_kanban_quick_add {
+    display: none !important;
+}
