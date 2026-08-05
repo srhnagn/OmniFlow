@@ -164,40 +164,35 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
     background-color: #0f172a !important;
     border: 1px solid rgba(250, 204, 21, 0.4) !important;
     border-radius: 8px !important;
-    margin: 8px 8px 16px 8px !important;
-    padding: 12px 12px 12px 12px !important;
+    margin: 8px !important;
+    padding: 12px 12px 50px 12px !important; /* Alt kısma zorla 50px boşluk veriyoruz ki butonlar içine düşsün */
     box-shadow: none !important;
     
     display: flex !important;
     flex-direction: column !important;
-    height: auto !important; /* İçeriğe göre doğal sarmalama */
-    min-height: 0 !important;
+    height: auto !important;
+    min-height: 120px !important;
     position: relative !important;
-    overflow: visible !important;
 }
 
 /* Form Alanı (Sadece Input kısmı) */
 .o_kanban_view .o_kanban_quick_create .o_form_view {
     padding: 0 !important;
     background: transparent !important;
-    flex: 0 0 auto !important; /* Form kendi başına büyümesin, sadece içeriği kadar olsun */
-    margin-bottom: 0 !important;
+    flex: 1 1 auto !important;
 }
 
-.o_kanban_view .o_kanban_quick_create .o_inner_group {
-    margin: 0 !important;
-    row-gap: 4px !important; /* Gizli alanların grid gap yaratmasını engelle */
-}
-
-/* Buton Satırı — Doğal Akışa Bırakıyoruz */
+/* Buton Satırı — Zorla İçeri Alıyoruz */
 .o_kanban_view .o_kanban_quick_create > div.d-flex {
-    position: relative !important;
-    margin-top: 12px !important; /* Kutu ile buton arası makul mesafe */
-    margin-bottom: 0 !important;
-    padding-top: 0 !important;
-    border-top: none !important;
+    position: absolute !important;
+    bottom: 8px !important;
+    left: 8px !important;
+    right: 8px !important;
+    padding-top: 8px !important;
+    border-top: none !important; /* Düzeltme: Mor çizgiye sebep olan üst kenarlığı kaldırdık */
+    margin-top: 0 !important;
     display: flex !important;
-    flex: 0 0 auto !important;
+    z-index: 10 !important; /* Butonların her şeyin üstünde olmasını garantile */
 }
 
 /* Task Title Label Rengini Açık Yap */
