@@ -159,19 +159,19 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
     background-color: transparent !important;
 }
 
-/* Hızlı Görev Ekleme (Quick Create) Alanı — Kurşun Geçirmez Layout */
+/* Hızlı Görev Ekleme (Quick Create) Alanı — En agresif çözüm */
 .o_kanban_view .o_kanban_quick_create {
     background-color: #0f172a !important;
     border: 1px solid rgba(250, 204, 21, 0.4) !important;
     border-radius: 8px !important;
     margin: 8px !important;
-    padding: 12px !important; /* Alt kısma zorla boşluk VERMİYORUZ */
+    padding: 12px 12px 50px 12px !important; /* Alt kısma zorla 50px boşluk veriyoruz ki butonlar içine düşsün */
     box-shadow: none !important;
     
     display: flex !important;
     flex-direction: column !important;
     height: auto !important;
-    min-height: auto !important;
+    min-height: 120px !important;
     position: relative !important;
 }
 
@@ -179,27 +179,20 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
 .o_kanban_view .o_kanban_quick_create .o_form_view {
     padding: 0 !important;
     background: transparent !important;
-    flex: 0 0 auto !important; /* Kesinlikle aşağı doğru gereksiz uzamasın! */
-    margin-bottom: 12px !important; /* Butonlarla arasına güvenli mesafe */
+    flex: 0 0 auto !important; /* BÜYÜMESİN! İçeriği kadar kalsın ki butonların üstüne binmesin */
 }
 
-/* Buton Satırı — Doğal Akış (Asla Absolute Değil) */
+/* Buton Satırı — Zorla İçeri Alıyoruz */
 .o_kanban_view .o_kanban_quick_create > div.d-flex {
-    position: static !important; /* Havada asılı kalmasın, formun hemen altına otursun */
-    margin: 0 !important;
-    padding: 0 !important;
-    border-top: none !important;
+    position: absolute !important;
+    bottom: 8px !important;
+    left: 8px !important;
+    right: 8px !important;
+    padding-top: 8px !important;
+    border-top: none !important; /* Çizgiyi tamamen yok ettik */
+    margin-top: 0 !important;
     display: flex !important;
-    flex: 0 0 auto !important;
-}
-
-/* Task Title Label Rengini Açık Yap */
-.o_kanban_view .o_kanban_quick_create .o_form_label {
-    color: #e2e8f0 !important;
-    font-weight: 600 !important;
-    opacity: 1 !important;
-    font-size: 0.95rem !important;
-    margin-bottom: 8px !important;
+    z-index: 10 !important; /* Her şeyin üstünde kalsın */
 }
 
 .o_kanban_quick_create input,
@@ -209,18 +202,14 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 6px !important;
     padding: 8px !important;
-    height: auto !important; /* Boyu içeriğe göre ayarlansın */
     min-height: 40px !important;
-    resize: vertical !important; /* Kullanıcı isterse büyütsün */
-    margin: 0 !important;
+    margin-bottom: 0 !important;
 }
 .o_kanban_quick_create input::placeholder,
 .o_kanban_quick_create textarea::placeholder {
     color: #f8fafc !important; /* Placeholder bembeyaz olsun */
     font-weight: 600;
 }
-
-/* Odoo'nun form widget'ındaki varsayılan alt kenarlıklarını tamamen siliyoruz */
 .o_kanban_quick_create .o_field_widget {
     border: none !important;
     border-bottom: none !important;
