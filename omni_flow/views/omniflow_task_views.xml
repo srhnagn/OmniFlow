@@ -30,6 +30,11 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
 
+            <!-- Remove assignee avatars from Kanban cards -->
+            <xpath expr="//templates//field[@name='user_ids'][@widget='many2many_avatar_user']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
             <!-- Add Delete button to hamburger menu -->
             <xpath expr="//t[@t-name='kanban-menu']" position="inside">
                 <div role="separator" class="dropdown-divider"></div>
@@ -323,6 +328,7 @@
 
     <record id="project.action_view_my_task" model="ir.actions.act_window">
         <field name="view_mode">kanban,form,calendar,pivot,activity</field>
+        <field name="domain">[('user_ids', 'in', uid), ('project_id', '!=', False)]</field>
     </record>
     
     <record id="project.action_view_all_task" model="ir.actions.act_window">
