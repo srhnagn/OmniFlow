@@ -189,9 +189,18 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
     left: 8px !important;
     right: 8px !important;
     padding-top: 8px !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-top: none !important; /* Çizgiyi kaldırıyoruz (butonların ortasından geçiyordu) */
     margin-top: 0 !important;
     display: flex !important;
+}
+
+/* Task Title Label Rengini Açık Yap */
+.o_kanban_view .o_kanban_quick_create .o_form_label {
+    color: #e2e8f0 !important;
+    font-weight: 600 !important;
+    opacity: 1 !important;
+    font-size: 0.95rem !important;
+    margin-bottom: 8px !important;
 }
 
 .o_kanban_quick_create input {
