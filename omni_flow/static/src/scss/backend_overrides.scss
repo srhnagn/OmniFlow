@@ -165,13 +165,13 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
     border: 1px solid rgba(250, 204, 21, 0.4) !important;
     border-radius: 8px !important;
     margin: 8px !important;
-    padding: 12px 12px 50px 12px !important; /* Alt kısma zorla 50px boşluk veriyoruz ki butonlar içine düşsün */
+    padding: 12px 12px 65px 12px !important; /* Alt kısma DAHA FAZLA boşluk veriyoruz (50px -> 65px) */
     box-shadow: none !important;
     
     display: flex !important;
     flex-direction: column !important;
     height: auto !important;
-    min-height: 120px !important;
+    min-height: 160px !important; /* Kutuyu aşağı doğru uzatıyoruz (120px -> 160px) */
     position: relative !important;
 }
 
@@ -190,7 +190,7 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
     right: 8px !important;
     padding-top: 8px !important;
     border-top: none !important; /* Çizgiyi tamamen yok ettik */
-    margin-top: 0 !important;
+    margin-top: 5 !important;
     display: flex !important;
     z-index: 10 !important; /* Her şeyin üstünde kalsın */
 }
