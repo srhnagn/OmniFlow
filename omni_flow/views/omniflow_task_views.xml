@@ -70,6 +70,7 @@
             <!-- Varsayılan gruplamayı (stage_id) omni_state olarak değiştir -->
             <xpath expr="//tree" position="attributes">
                 <attribute name="default_group_by">omni_state</attribute>
+                <attribute name="js_class"></attribute>
             </xpath>
             <!-- Normal Stage ID'yi tamamen gizleyip kendi omni_state (Stage) alanımızı ekliyoruz -->
             <xpath expr="//field[@name='stage_id']" position="replace">
