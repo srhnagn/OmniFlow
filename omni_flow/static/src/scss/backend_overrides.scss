@@ -291,11 +291,14 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
 
 /* Liste (Tree) Görünümü Uzun Metinlerin Taşmasını Engelleme / Satır Atlama */
 .o_list_view .o_data_row td, 
-.o_list_view .o_data_cell {
+.o_list_view .o_data_cell,
+.o_list_view .o_data_row td *,
+.o_list_view .o_data_cell * {
     white-space: normal !important;
     word-break: break-word !important;
+    text-overflow: clip !important;
+    overflow: visible !important;
     height: auto !important;
-    min-height: 40px !important;
 }
 
 /* Uzun metinlerin kartlardan taşmasını (overflow) engelle ve HTML tag'lerini düzelt */
