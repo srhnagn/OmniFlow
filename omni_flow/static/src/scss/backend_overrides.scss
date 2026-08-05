@@ -165,13 +165,13 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
     border: 1px solid rgba(250, 204, 21, 0.4) !important;
     border-radius: 8px !important;
     margin: 8px !important;
-    padding: 12px 12px 50px 12px !important; /* Alt kısma zorla 50px boşluk veriyoruz ki butonlar içine düşsün */
+    padding: 12px !important;
     box-shadow: none !important;
     
     display: flex !important;
     flex-direction: column !important;
     height: auto !important;
-    min-height: 120px !important;
+    min-height: auto !important;
     position: relative !important;
 }
 
@@ -182,15 +182,12 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
     flex: 1 1 auto !important;
 }
 
-/* Buton Satırı — Zorla İçeri Alıyoruz */
+/* Buton Satırı — Doğal Akışa Bırakıyoruz */
 .o_kanban_view .o_kanban_quick_create > div.d-flex {
-    position: absolute !important;
-    bottom: 8px !important;
-    left: 8px !important;
-    right: 8px !important;
-    padding-top: 8px !important;
-    border-top: none !important; /* Çizgiyi kaldırıyoruz (butonların ortasından geçiyordu) */
-    margin-top: 0 !important;
+    position: relative !important;
+    margin-top: 12px !important;
+    padding-top: 0 !important;
+    border-top: none !important;
     display: flex !important;
 }
 
@@ -203,12 +200,17 @@ body, .o_web_client, .o_action_manager, .o_view_controller, .o_content,
     margin-bottom: 8px !important;
 }
 
-.o_kanban_quick_create input {
+.o_kanban_quick_create input,
+.o_kanban_quick_create textarea,
+.o_kanban_quick_create .o_field_widget {
     background-color: rgba(255, 255, 255, 0.05) !important;
     color: #ffffff !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
 }
-.o_kanban_quick_create input::placeholder {
+.o_kanban_quick_create input::placeholder,
+.o_kanban_quick_create textarea::placeholder {
     color: #f8fafc !important; /* Placeholder bembeyaz olsun */
     font-weight: 600;
 }
