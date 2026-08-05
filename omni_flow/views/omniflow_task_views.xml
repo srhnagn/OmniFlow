@@ -301,27 +301,27 @@
         </field>
     </record>
 
-    <!-- Override To-Do Action Context and Enforce Kanban-Only Mode -->
+    <!-- Override To-Do Action Context and Enforce Views -->
     <record id="project_todo.project_task_action_todo" model="ir.actions.act_window">
-        <field name="view_mode">kanban,form</field>
+        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
         <field name="context">{'default_project_id': False}</field>
     </record>
 
-    <!-- Enforce Kanban-Only Mode for All Main Task Actions -->
+    <!-- Restrict Main Task Actions (Remove List) -->
     <record id="project.act_project_project_2_project_task_all" model="ir.actions.act_window">
-        <field name="view_mode">kanban,form</field>
+        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
     </record>
 
     <record id="project.action_view_task" model="ir.actions.act_window">
-        <field name="view_mode">kanban,form</field>
+        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
     </record>
 
     <record id="project.action_view_my_task" model="ir.actions.act_window">
-        <field name="view_mode">kanban,form</field>
+        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
     </record>
     
     <record id="project.action_view_all_task" model="ir.actions.act_window">
-        <field name="view_mode">kanban,form</field>
+        <field name="view_mode">kanban,form,calendar,pivot,graph,activity</field>
     </record>
 
     <!-- Mini Pop-up for Quick Edit Name -->

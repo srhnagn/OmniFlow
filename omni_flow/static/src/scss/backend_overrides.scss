@@ -1126,3 +1126,9 @@ i.fa-video-camera,
 .o_kanban_group:not([data-id*="ideas"]) .o_kanban_quick_add {
     display: none !important;
 }
+
+/* Kullanıcının talebi: Kanban ve List butonlarını view switcher'dan tamamen kaldır */
+.o_cp_switch_buttons .o_switch_view.o_kanban,
+.o_cp_switch_buttons .o_switch_view.o_list {
+    display: none !important;
+}
