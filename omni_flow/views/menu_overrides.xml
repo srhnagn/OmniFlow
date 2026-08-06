@@ -38,6 +38,17 @@ action = env['project.task.type'].action_load_default_stages()
         <field name="active" eval="False"/>
     </record>
 
+    <!-- HIDE Configuration -> Task Stages, Activity Types, Activity Plans -->
+    <record id="project.menu_project_config_project" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="project.project_menu_config_activity_type" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="project.mail_activity_plan_menu_config_project" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
     <!-- CHANGE Main Projects Actions to Open as List (Tree) by Default -->
     <record id="project.open_view_project_all" model="ir.actions.act_window">
         <field name="view_mode">tree,kanban,form</field>
