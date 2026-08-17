@@ -73,6 +73,25 @@
     background-color: transparent !important;
 }
 
+/* Kolon Altındaki İlerleme Çubuğu (Progress Bar) */
+.o_kanban_header .progress,
+.o_kanban_header .o_kanban_counter_progress {
+    height: 6px !important;
+    border-radius: 6px !important;
+    background-color: #f1f5f9 !important;
+    margin-top: 8px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+.o_kanban_header .progress-bar {
+    background-color: #6d28d9 !important; /* Navbar ile uyumlu şık mor */
+    opacity: 0.8 !important;
+}
+.o_kanban_header:hover .progress-bar {
+    opacity: 1 !important;
+    transition: opacity 0.3s ease;
+}
+
 /* Hızlı Görev Ekleme (Quick Create) Alanı — En agresif çözüm */
 .o_kanban_view .o_kanban_quick_create {
     background-color: #ffffff !important;
