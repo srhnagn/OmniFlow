@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<templates xml:space="preserve">
-    <t t-name="omni_flow.ThemeToggle">
-        <li class="o_nav_entry omniflow-theme-btn" t-on-click="toggle" title="Toggle Light / Dark Mode">
-            <t t-if="state.isLight">🌙</t>
-            <t t-else="">☀️</t>
-        </li>
-    </t>
-</templates>
