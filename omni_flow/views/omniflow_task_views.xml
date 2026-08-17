@@ -59,11 +59,11 @@
 
             <!-- Popup Modal Butonu - Kartın Gövdesinin Altına Şık Bir Buton Olarak Ekle -->
             <xpath expr="//div[hasclass('o_kanban_record_body')]" position="inside">
-                <div class="mt-3" style="display: flex; justify-content: center; align-items: center; position: relative; z-index: 10; opacity: 1 !important;">
+                <div class="mt-3" style="display: flex; justify-content: center; align-items: center; position: relative; z-index: 10;">
                     <button name="action_open_project_task_modal" type="object" class="btn" style="padding: 0 !important; display: flex; justify-content: center; align-items: center;" title="View Task Details">
-                        <div style="display: flex; justify-content: center; align-items: center; border: 1px dashed rgba(250, 204, 21, 0.4); border-radius: 4px; background-color: rgba(250, 204, 21, 0.05); color: #facc15 !important; font-size: 0.75rem; font-weight: 500; padding: 6px 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; white-space: nowrap;" 
-                             onmouseover="this.style.backgroundColor='rgba(250, 204, 21, 0.15)'; this.style.color='#ffffff'; this.style.borderColor='rgba(250, 204, 21, 1)'; this.style.transform='translateY(-2px)';" 
-                             onmouseout="this.style.backgroundColor='rgba(250, 204, 21, 0.05)'; this.style.color='#facc15'; this.style.borderColor='rgba(250, 204, 21, 0.4)'; this.style.transform='translateY(0)';">
+                        <div style="display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; background-color: transparent; color: rgba(255,255,255,0.45) !important; font-size: 0.72rem; font-weight: 400; padding: 5px 14px; transition: all 0.2s ease; cursor: pointer; white-space: nowrap; letter-spacing: 0.03em;"
+                             onmouseover="this.style.backgroundColor='rgba(255,255,255,0.07)'; this.style.color='rgba(255,255,255,0.85)'; this.style.borderColor='rgba(255,255,255,0.25)';" 
+                             onmouseout="this.style.backgroundColor='transparent'; this.style.color='rgba(255,255,255,0.45)'; this.style.borderColor='rgba(255,255,255,0.1)';">
                             View Task Details
                         </div>
                     </button>
@@ -140,15 +140,14 @@
 
             <!-- Centered Popup Button -->
             <xpath expr="//div[hasclass('oe_kanban_bottom_left')]" position="after">
-                <div style="flex: 0 0 auto; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 10; opacity: 1 !important;">
+                <div style="flex: 0 0 auto; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 10;">
                     <button name="action_open_modal" type="object" class="btn" style="padding: 0 !important; display: flex; justify-content: center; align-items: center;" title="View Task Details">
-                        <div style="display: flex; justify-content: center; align-items: center; border: 1px dashed rgba(250, 204, 21, 0.4); border-radius: 4px; background-color: rgba(250, 204, 21, 0.05); color: #facc15 !important; font-size: 0.75rem; font-weight: 500; padding: 6px 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; white-space: nowrap;" 
-                             onmouseover="this.style.backgroundColor='rgba(250, 204, 21, 0.15)'; this.style.color='#ffffff'; this.style.borderColor='rgba(250, 204, 21, 1)'; this.style.transform='translateY(-2px)';" 
-                             onmouseout="this.style.backgroundColor='rgba(250, 204, 21, 0.05)'; this.style.color='#facc15'; this.style.borderColor='rgba(250, 204, 21, 0.4)'; this.style.transform='translateY(0)';">
+                        <div style="display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; background-color: transparent; color: rgba(255,255,255,0.45) !important; font-size: 0.72rem; font-weight: 400; padding: 5px 14px; transition: all 0.2s ease; cursor: pointer; white-space: nowrap; letter-spacing: 0.03em;"
+                             onmouseover="this.style.backgroundColor='rgba(255,255,255,0.07)'; this.style.color='rgba(255,255,255,0.85)'; this.style.borderColor='rgba(255,255,255,0.25)';" 
+                             onmouseout="this.style.backgroundColor='transparent'; this.style.color='rgba(255,255,255,0.45)'; this.style.borderColor='rgba(255,255,255,0.1)';">
                             View Task Details
                         </div>
                     </button>
-                    <span style="color: #F3CE49 !important; font-weight: 500; font-size: 0.65rem; margin-top: 4px; letter-spacing: 0.2px;">Click anywhere in the task to edit its name</span>
                 </div>
             </xpath>
             
