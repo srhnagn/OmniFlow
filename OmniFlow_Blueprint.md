@@ -9,7 +9,7 @@
 
 **Story Layers:**
 *   **🔴 Problem:** Disorganized communication, inability to track tasks, and lack of managerial control over task statuses (progress, completion).
-*   **🔧 Solution Process:** Customizing the Odoo Discuss module into a Slack/Teams-like structure, implementing a dark theme, custom Kanban card designs, and establishing a **Manager-Approved Task Workflow**.
+*   **🔧 Solution Process:** Customizing the Odoo Discuss module into a Slack/Teams-like structure, implementing a clean light theme, custom Kanban card designs, and establishing a **Manager-Approved Task Workflow**.
 *   **🟢 Result:** The entire team communicates through a single interface, and task statuses cannot change without managerial approval, ensuring complete control.
 *   **📊 Technical Depth:** UI/UX overrides, Kanban XML modifications, and implementing custom models and state overrides for the approval mechanism.
 
@@ -41,7 +41,7 @@ When writing each project into the internship logbook, the following structure m
 
 ## 🏗️ Architectural Decisions & Guidelines (Agreed upon on 31.07.2026)
 
-1. **Design Language (Strategic & Minimalist):** Unlike the operational/neon focus of KS IT Envanter, OmniFlow targets a strategic/documentary environment (akin to Notion or Asana). The dark mode will be clean, minimalist, and use a grayscale palette to maximize reading comfort for long rich-text descriptions. Neon colors will only be used for strict status indicators (badges) to maintain high contrast without overwhelming the interface.
+1. **Design Language (Strategic & Minimalist):** Unlike the operational focus of KS IT Envanter, OmniFlow targets a strategic/documentary environment (akin to Notion or Asana). The interface will be clean, minimalist, and strictly use a bright Light Mode to maximize reading comfort for long rich-text descriptions. Standard Odoo colors will be used for strict status indicators (badges) without overwhelming the interface.
 
 2. **Kanban Columns & Language Policy:** The entire OmniFlow module will be developed **100% in English** (both code and UI/XML). Odoo's default Stage mechanics will be entirely bypassed. Instead, Kanban columns will be strictly bound to a custom `omni_state` field consisting of 6 fixed steps: `Ideas`, `Pending Start Approval`, `In Progress`, `Pending Finish Approval`, `Done`, and `Cancelled`. To prevent system breakage, core stages like 'Done' and 'Cancelled' are protected at the ORM level (via `unlink` overrides) and cannot be deleted by users. A "Load Default Stages" utility is provided to restore any missing columns. To ensure all tasks follow this correct lifecycle, the global Odoo "New" button is hidden via CSS, strictly forcing users to initiate new tasks using only the Quick Create `+` button inside the `Ideas` column.
 

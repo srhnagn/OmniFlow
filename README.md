@@ -10,7 +10,7 @@ OmniFlow is an Odoo 17-based centralized platform designed for comprehensive tea
 * **State Persistence & Core Overrides:** Native Odoo JavaScript OWL behaviors were patched to provide true "Fold Memory Persistence", meaning collapsed columns are saved directly to the database. Core system stages ('Done', 'Cancelled') are protected at the Python ORM level to prevent accidental deletion.
 * **Rich Text Task Documents:** Moving away from classic, rigid ERP form layouts to a wide, clean, Notion-style document structure that focuses on Rich Text editing for extensive task descriptions and collaborative notes. Includes a custom onboarding placeholder ("Welcome to Task Details").
 * **Centralized Internal Communication:** Customized Odoo Discuss framework integrations that provide a Slack/Teams-like structure directly embedded within task records, allowing teams to collaborate in context without leaving the platform.
-* **Dark Theme Optimized:** Deep UI/UX overrides with carefully crafted CSS/SCSS ensuring the entire task management experience is easy on the eyes and professionally styled.
+* **Light Theme Optimized:** Deep UI/UX overrides with carefully crafted CSS/SCSS ensuring the entire task management experience is clean, bright, and professionally styled for corporate environments.
 
 ## 🛠 Tech Stack
 
