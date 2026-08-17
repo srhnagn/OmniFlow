@@ -1,60 +1,49 @@
 /** @odoo-module **/
 
-import { Component, useState, onMounted } from "@odoo/owl";
+import { Component, useState } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { browser } from "@web/core/browser/browser";
 
 const STORAGE_KEY = "omniflow_theme";
 const LIGHT_CLASS = "omniflow-light";
 
-/**
- * Reads the saved theme from localStorage and applies it to <body>.
- * Called immediately on module load so there's no flash of dark mode.
- */
-function applyStoredTheme() {
-    const saved = browser.localStorage.getItem(STORAGE_KEY);
-    // Default is light mode — only go dark if explicitly saved as "dark"
-    if (saved === "dark") {
-        document.body.classList.remove(LIGHT_CLASS);
-    } else {
+// ─── Apply theme before first render (flash önleme) ──────────────────────────
+// Bu kod modül yüklenirken (bileşen mount edilmeden önce) çalışır.
+(function applyThemeEarly() {
+    const stored = browser.localStorage.getItem(STORAGE_KEY);
+    // Varsayılan: light. Eğer "dark" kaydedilmişse light class'ı ekleme.
+    if (stored !== "dark") {
         document.body.classList.add(LIGHT_CLASS);
+    } else {
+        document.body.classList.remove(LIGHT_CLASS);
     }
-}
+})();
 
-// Apply immediately (before any component mounts) to prevent flash
-applyStoredTheme();
-
-class ThemeToggle extends Component {
-    static template = "omni_flow.ThemeToggle";
-    static props = {};
-
+// ─── Systray Component ────────────────────────────────────────────────────────
+export class ThemeToggle extends Component {
     setup() {
-        const saved = browser.localStorage.getItem(STORAGE_KEY);
+        const stored = browser.localStorage.getItem(STORAGE_KEY);
         this.state = useState({
-            isLight: saved !== "dark",  // default: light
+            isLight: stored !== "dark",
         });
-
-        onMounted(() => {
-            this._applyTheme(this.state.isLight);
-        });
-    }
-
-    _applyTheme(isLight) {
-        if (isLight) {
-            document.body.classList.add(LIGHT_CLASS);
-        } else {
-            document.body.classList.remove(LIGHT_CLASS);
-        }
-        browser.localStorage.setItem(STORAGE_KEY, isLight ? "light" : "dark");
     }
 
     toggle() {
         this.state.isLight = !this.state.isLight;
-        this._applyTheme(this.state.isLight);
+        if (this.state.isLight) {
+            document.body.classList.add(LIGHT_CLASS);
+            browser.localStorage.setItem(STORAGE_KEY, "light");
+        } else {
+            document.body.classList.remove(LIGHT_CLASS);
+            browser.localStorage.setItem(STORAGE_KEY, "dark");
+        }
     }
 }
 
-registry.category("systray").add("omniflow.theme_toggle", {
+ThemeToggle.template = "omni_flow.ThemeToggle";
+ThemeToggle.props = {};
+
+// sequence: 25 → kullanıcı avatarının hemen solunda görünür
+registry.category("systray").add("omni_flow.theme_toggle", {
     Component: ThemeToggle,
-    sequence: 5,  // sağda, kullanıcı avatarının yanına yerleş
-});
+}, { sequence: 25 });

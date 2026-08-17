@@ -22,6 +22,7 @@
         'web.assets_backend': [
             'omni_flow/static/src/scss/backend_overrides.scss',
             'omni_flow/static/src/scss/omniflow_kanban.scss',
+            'omni_flow/static/src/scss/light_mode.scss',
             'omni_flow/static/src/js/todo_done_checkmark_patch.js',
             'omni_flow/static/src/js/kanban_header_patch.js',
             'omni_flow/static/src/js/theme_toggle.js',

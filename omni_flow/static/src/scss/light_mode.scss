@@ -1,0 +1,227 @@
+/* =============================================================
+   OmniFlow Light Mode — body.omniflow-light scoped CSS
+   Tüm kurallar body.omniflow-light altında scope edilmiştir.
+   Koyu mod kuralları (backend_overrides.scss) dokunulmadan kalır.
+   ============================================================= */
+
+/* ── Tema Butonu (Systray) ────────────────────────────────── */
+.omniflow-theme-btn {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    padding: 0 8px !important;
+    font-size: 1.1rem !important;
+    line-height: 1 !important;
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+    user-select: none;
+}
+.omniflow-theme-btn:hover {
+    opacity: 1;
+}
+
+/* ── Light Mode Global Overrides ─────────────────────────── */
+body.omniflow-light,
+body.omniflow-light .o_web_client,
+body.omniflow-light .o_action_manager,
+body.omniflow-light .o_view_controller,
+body.omniflow-light .o_content,
+body.omniflow-light .o_kanban_renderer,
+body.omniflow-light .o_list_renderer,
+body.omniflow-light .o_form_view,
+body.omniflow-light .o_form_sheet_bg,
+body.omniflow-light .bg-view {
+    background-color: #f1f5f9 !important;
+    background-image: none !important;
+    color: #1e293b !important;
+}
+
+/* ── Navbar ───────────────────────────────────────────────── */
+body.omniflow-light .o_main_navbar,
+body.omniflow-light .o_menu_brand {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    color: #1e293b !important;
+}
+body.omniflow-light .o_main_navbar .o_menu_sections a,
+body.omniflow-light .o_main_navbar .o_nav_entry,
+body.omniflow-light .o_main_navbar a {
+    color: #334155 !important;
+}
+body.omniflow-light .o_main_navbar .o_menu_sections a:hover,
+body.omniflow-light .o_main_navbar a:hover {
+    color: #1e293b !important;
+    background-color: #f1f5f9 !important;
+}
+
+/* ── Control Panel / Breadcrumb ──────────────────────────── */
+body.omniflow-light .o_control_panel {
+    background-color: #f1f5f9 !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    color: #1e293b !important;
+}
+body.omniflow-light .o_control_panel .breadcrumb-item.active {
+    color: #1e293b !important;
+    font-weight: 600;
+}
+body.omniflow-light .o_control_panel .breadcrumb-item:not(.active) a {
+    color: #475569 !important;
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+body.omniflow-light .o_control_panel .breadcrumb-item:not(.active) a:hover {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+}
+body.omniflow-light .o_control_panel .o_cp_searchview {
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+}
+body.omniflow-light .o_control_panel input {
+    color: #1e293b !important;
+}
+
+/* ── Kanban Kolonları ─────────────────────────────────────── */
+body.omniflow-light .o_kanban_view .o_kanban_group:not(.o_column_folded) {
+    background: #e8edf5 !important;
+    border: 1px solid #d1d9e6 !important;
+}
+
+/* ── Kanban Header ────────────────────────────────────────── */
+body.omniflow-light .o_kanban_header {
+    background: #dde3ef !important;
+    border-bottom: 1px solid #c8d0de !important;
+}
+body.omniflow-light .o_kanban_header_title .o_column_title {
+    color: #334155 !important;
+}
+body.omniflow-light .o_kanban_header .o_kanban_config .dropdown-toggle,
+body.omniflow-light .o_kanban_header .o_kanban_toggle_fold {
+    color: #64748b !important;
+}
+body.omniflow-light .o_kanban_header .o_kanban_counter,
+body.omniflow-light .o_kanban_header .o_kanban_counter span,
+body.omniflow-light .o_kanban_header .o_kanban_counter b {
+    color: #475569 !important;
+}
+
+/* ── Kanban Kartları ──────────────────────────────────────── */
+body.omniflow-light .o_kanban_record,
+body.omniflow-light .o_kanban_record > div,
+body.omniflow-light .oe_kanban_global_click {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #1e293b !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+}
+body.omniflow-light .o_kanban_record:hover {
+    border-color: #94a3b8 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Kart metinleri */
+body.omniflow-light .o_kanban_record .o_kanban_record_title,
+body.omniflow-light .o_kanban_record span,
+body.omniflow-light .o_kanban_record div,
+body.omniflow-light .o_kanban_record strong {
+    color: #1e293b !important;
+}
+body.omniflow-light .o_kanban_record .text-muted {
+    color: #64748b !important;
+}
+
+/* ── Quick Create ─────────────────────────────────────────── */
+body.omniflow-light .o_kanban_quick_create {
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+}
+body.omniflow-light .o_kanban_quick_create input,
+body.omniflow-light .o_kanban_quick_create textarea {
+    background-color: #f8fafc !important;
+    color: #1e293b !important;
+    border: 1px solid #cbd5e1 !important;
+}
+body.omniflow-light .o_kanban_quick_create input::placeholder,
+body.omniflow-light .o_kanban_quick_create textarea::placeholder {
+    color: #94a3b8 !important;
+}
+
+/* ── Liste / Tablo ────────────────────────────────────────── */
+body.omniflow-light .o_list_table,
+body.omniflow-light .table {
+    background-color: #ffffff !important;
+    color: #1e293b !important;
+    border: 1px solid #e2e8f0 !important;
+}
+body.omniflow-light .o_list_table thead,
+body.omniflow-light .o_list_table thead tr,
+body.omniflow-light .o_list_table th {
+    background-color: #f8fafc !important;
+    color: #475569 !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+}
+body.omniflow-light .o_list_table tbody tr:hover {
+    background-color: #f1f5f9 !important;
+}
+body.omniflow-light .o_list_table td {
+    color: #1e293b !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+}
+
+/* ── Form View ────────────────────────────────────────────── */
+body.omniflow-light .o_form_view,
+body.omniflow-light .o_form_sheet {
+    background-color: #ffffff !important;
+    color: #1e293b !important;
+}
+body.omniflow-light .o_field_widget input,
+body.omniflow-light .o_field_widget textarea,
+body.omniflow-light .o_field_widget select {
+    background-color: #f8fafc !important;
+    color: #1e293b !important;
+    border: 1px solid #cbd5e1 !important;
+}
+body.omniflow-light .o_form_label {
+    color: #475569 !important;
+}
+
+/* ── Sidebar / App Menu ───────────────────────────────────── */
+body.omniflow-light .o_home_menu,
+body.omniflow-light .o_menu_sections {
+    background-color: #ffffff !important;
+}
+
+/* ── Dropdown Menüler ─────────────────────────────────────── */
+body.omniflow-light .dropdown-menu,
+body.omniflow-light .o_Popover {
+    background-color: #ffffff !important;
+    color: #1e293b !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+}
+body.omniflow-light .dropdown-item {
+    color: #334155 !important;
+}
+body.omniflow-light .dropdown-item:hover {
+    background-color: #f1f5f9 !important;
+    color: #1e293b !important;
+}
+
+/* ── Discuss ──────────────────────────────────────────────── */
+body.omniflow-light .o-mail-MessagingMenu,
+body.omniflow-light .o-mail-NotificationItem {
+    background-color: #ffffff !important;
+    color: #1e293b !important;
+}
+
+/* ── View Task Details butonu (light modda) ───────────────── */
+body.omniflow-light .o_kanban_record button[title="View Task Details"] div {
+    border-color: rgba(0, 0, 0, 0.15) !important;
+    color: rgba(0, 0, 0, 0.4) !important;
+}
+body.omniflow-light .o_kanban_record button[title="View Task Details"] div:hover {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    color: rgba(0, 0, 0, 0.7) !important;
+    border-color: rgba(0, 0, 0, 0.25) !important;
+}
