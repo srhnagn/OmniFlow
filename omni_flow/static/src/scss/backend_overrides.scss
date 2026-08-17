@@ -35,7 +35,7 @@
     margin: 0 -6px !important;
     border-radius: 10px 10px 0 0 !important;
     position: relative;
-    z-index: 1050 !important;
+    z-index: 900 !important;
     flex-shrink: 0;
 }
 .o_kanban_header_title .o_column_title {
@@ -44,6 +44,22 @@
     font-size: 0.85rem !important;
     letter-spacing: 0.04em !important;
     text-transform: uppercase !important;
+}
+
+/* Kanban İkonları: Her zaman görünür olsun (To-do için) */
+.o_kanban_header .o_kanban_config .dropdown-toggle,
+.o_kanban_header .o_kanban_toggle_fold {
+    visibility: visible !important;
+    opacity: 0.5 !important;
+}
+.o_kanban_header .o_kanban_config .dropdown-toggle:hover,
+.o_kanban_header .o_kanban_toggle_fold:hover {
+    opacity: 1 !important;
+}
+
+/* OmniFlow Project Kanban'ında ayarlar çarkını (cog) tamamen gizle */
+.o_omniflow_kanban .o_kanban_header .o_kanban_config {
+    display: none !important;
 }
 
 /* Kart Sayısı (Counter) */
